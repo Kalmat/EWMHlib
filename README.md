@@ -4,13 +4,18 @@
 Extended Window Manager Hints implementation in Python 3 which allows to easily query and control 
 Window Managers which follow these standards.
 
+It also adds some additional, useful features like catching and handling events.
+
 For more information, refer to official documentation at: https://specifications.freedesktop.org/wm-spec/latest/
+
+**Warning: new Display Server used by GNOME in Ubuntu, Wayland, is not EWMH-compliant, so some features will not work**
+
 
 ### RootWindow: Root queries, changes and messages
 
 Base class to access root features.
 
-If you need to address default root window, you can use simply use `defaultRootWindow` object, which will give you
+If you need to address default root window, you can simply use `defaultRootWindow` object, which will give you
 instant access to all root-related features (it is equivalent to: `myRoot = RootWindow()`)
 
 To get a RootWindow object it is necessary to pass the target root id. This can be achieved in several ways:
@@ -159,3 +164,4 @@ Be sure you install all dependencies described on "docs/requirements.txt" by usi
 To test this module on your own system, cd to "tests" folder and run:
 
     python3 test_ewmhlib.py
+ 
