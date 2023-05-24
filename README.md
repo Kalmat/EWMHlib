@@ -1,5 +1,5 @@
 # EWMH-lib
-[![Type Checking](https://github.com/Kalmat/PyWinBox/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/PyWinBox/actions/workflows/type-checking.yml)
+[![Type Checking](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml)
 
 Extended Window Manager Hints implementation in Python 3 which allows to easily query and control 
 Window Managers which follow these standards.
