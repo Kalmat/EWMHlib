@@ -1,0 +1,3 @@
+- Validate if proposed model (RootWindow and EwmhWindow classes) is optimal
+- Investigate, finish and test some functions which are not clear, like setStrut(), setStrutPartial(), setWmMoveResize(), setWmStacking(), requestFrameExtents(), etc.
+- Determine if some Root methods, always related to a window object, should be included in RootWindow and/or EwmhWindow classes
