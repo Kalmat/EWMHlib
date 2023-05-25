@@ -1,4 +1,4 @@
-# EWMH-lib
+|# EWMH-lib
 [![Type Checking](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml)
 
 Extended Window Manager Hints implementation in Python 3 and python-xlib, which allows to easily query and control 
@@ -200,3 +200,53 @@ To test this module on your own system, cd to "tests" folder and run:
 
     python3 test_ewmhlib.py
  
+
+## List of window managers that support Extended Window Manager Hints
+
+An (likely) incomplete list of EWMH-compliant window managers is (via Wikipedia, [here](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints) and [here](https://en.wikipedia.org/wiki/Comparison_of_X_window_managers#General_information)):
+
+|         Name         |  Comments   |
+|:--------------------:|:-----------:|
+|         aewm         |             |
+|       awesome        |             |
+|       Blackbox       |     (1)     |
+|        bspwm         |   Partial   |
+|         CTWM         |     (2)     |
+|        Compiz        |             |
+|       echinus        |             |
+|        edewm         |             |
+|    Enlightenment     |             |
+|        evilwm        | Partial (3) |
+|         EXWM         |   Partial   |
+|       Fluxbox        |             |
+|         FVWM         |             |
+|       goomwwm        |             |
+|     herbstluftwm     |             |
+|          i3          |             |
+|        IceWM         |             |
+|     interfacewm      |             |
+|         JWM          |             |
+|      KWin (KDE)      |             |
+|        LeftWM        |             |
+|        Marco         |             |
+|       Matchbox       |             |
+|   Metacity (GNOME)   |             |
+| Mutter (GNOME/MeeGo) |             |
+|        Notion        |             |
+|       Openbox        |             |
+|        PekWM         |   Partial   |
+|        PlayWM        |             |
+|        Qtile         |             |
+|       Sawfish        |   Partial   |
+|       spectrwm       |             |
+|        subtle        |             |
+|     Window Maker     |   Partial   |
+|        Wingo         |             |
+|         WMFS         |             |
+|         wmii         |             |
+|     Xfwm (Xfce)      |             |
+|        xmonad        |             |
+
+(1) Through 0.65 / from 0.70
+(2) As of 4.0.0
+(3) Releases following and including version 1.1.0 follow the EWMH standard
