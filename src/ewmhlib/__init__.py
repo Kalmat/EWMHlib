@@ -5,7 +5,7 @@ assert sys.platform == "linux"
 
 from ._ewmhlib import (Props, Structs, getAllDisplaysInfo, getDisplayFromRoot, getDisplayFromWindow,
                        getProperty, getPropertyValue, changeProperty, sendMessage, _xlibGetAllWindows,
-                       defaultDisplay, defaultScreen, defaultRoot, defaultRootWindow, RootWindow, EwmhWindow
+                       defaultDisplay, defaultScreen, defaultRoot, RootWindow, defaultRootWindow, EwmhWindow
                        )
 
 

@@ -52,6 +52,7 @@ Note that, although a root is also a window, these methods will not likely work 
 Apart from given methods, there are some values you can use with python-xlib:
 
 - display: XDisplay connection
+- screen: screen Struct
 - root: root X Window object
 - rootWindow: object to access RootWindow methods
 - xWindow: X Window object associated to current window
@@ -64,6 +65,36 @@ available using extensions subclass (EwmhWindow.extensions.*), see below.
 #### Extensions: Hints, Protocols and Events
 
 Additional, non-EWMH features, related to low-level window properties like hints, protocols and events.
+
+Events loop example:
+
+    import time
+    
+    import Xlib.protocol
+    import Xlib.X
+    
+    from ewmhlib import RootWindow, EwmhWindow
+    
+    root = RootWindow()
+    w = root.getActiveWindow()
+    if w:
+        win = EwmhWindow(w)
+
+    def callback(event: Xlib.protocol.rq.Event):
+        print("EVENT RECEIVED", event)
+
+    win.extensions.checkEvents.start([Xlib.X.ConfigureNotify, Xlib.X.ConfigureRequest, Xlib.X.ClientMessage],
+                                     Xlib.X.StructureNotifyMask | Xlib.X.SubstructureNotifyMask,
+                                     callback)
+
+    print("MOVE AND RESIZE ACTIVE WINDOW")
+    print("Press Ctl-C to exit")
+    while True:
+        try:
+            time.sleep(0.1)
+        except KeyboardInterrupt:
+            break
+    win.extensions.checkEvents.stop()
 
 
 ### General variables
@@ -94,9 +125,11 @@ These functions will allow to manage/find proper display, in a multi-display env
 ### Properties and Messages functions  
 
 This set of functions will allow to directly query and control application or root windows, without the
-need of instantiation their corresponding classes described above. These are very similar to
-their Xlib equivalent functions (more complex to use), but they add some useful help in order to handle 
-values, atoms and so on.
+need of instantiating their corresponding classes described above. 
+
+These are very similar to their Xlib equivalent functions (more complex to use), and therefore will allow 
+custom, more advanced, perhaps more specific and/or non fully EWMH standard features; but they add some 
+useful help in order to simplify handling values, atoms and so on.
 
 |  Property functions  |
 |:--------------------:|
