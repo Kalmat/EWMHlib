@@ -449,36 +449,35 @@ def getPropertyValue(prop: Optional[Xlib.protocol.request.GetProperty], text: bo
 
 
 class RootWindow:
-    """
-    Base class to access root features.
-
-    To get a RootWindow object it's necessary to pass the target root id. This can be achieved in several ways:
-
-    - You already have a root, so pass root.id param
-
-    - You have some criteria to select a root, so use the convenience function getAllDisplaysInfo(), to look
-      for all roots and select the desired one
-
-    - You have a target window, so use the convenience function getDisplayFromWindow(window.id), so you will
-      retrieve the associated display connection and root window
-
-    - Instantiate this class with no param (None), so it will retrieve the default display and root
-
-    Apart from given methods, you can access these other values to be used with python-xlib:
-
-    - display: XDisplay connection
-
-    - screen: screen Struct
-
-    - root: root X Window object
-
-    - id: root window id
-
-    WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (RootWindow.wmProtocols.Ping/Sync)
-    """
 
     def __init__(self, root: Optional[XWindow] = None):
+        """
+        Class to access root features.
 
+        To get a RootWindow object it's necessary to pass the target root id. This can be achieved in several ways:
+
+        - You already have a root, so pass root.id param
+
+        - You have some criteria to select a root, so use the convenience function getAllDisplaysInfo(), to look
+          for all roots and select the desired one
+
+        - You have a target window, so use the convenience function getDisplayFromWindow(window.id), so you will
+          retrieve the associated display connection and root window
+
+        - Instantiate this class with no param (None), so it will retrieve the default display and root
+
+        Apart from given methods, you can access these other values to be used with python-xlib:
+
+        - display: XDisplay connection
+
+        - screen: screen Struct
+
+        - root: root X Window object
+
+        - id: root window id
+
+        WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (RootWindow.wmProtocols.Ping/Sync)
+        """
         if root and root.id != defaultRoot.id:
             self.display, self.screen, self.root = getDisplayFromRoot(root.id)
         else:
@@ -1159,37 +1158,36 @@ defaultRootWindow = RootWindow()
 
 
 class EwmhWindow:
-    """
-    Base class to access application windows related features.
-
-    To instantiate this class only a window id is required. It's possible to retrieve this value in several ways:
-
-    - Target a specific window using an external module (e.g. PyWinCtl.getAllWindowsWithTitle(title))
-
-    - Retrieve it from your own application (e.g. PyQt's winId() or TKinter's frame())
-
-    Note that, although a root is also a window, these methods will not likely work with it.
-
-    Apart from given methods, there are some values you can use with python-xlib:
-
-    - display: XDisplay connection
-
-    - screen: screen Struct
-
-    - root: root X Window object
-
-    - rootWindow: object to access RootWindow methods
-
-    - xWindow: X Window object associated to current window
-
-    - id: current window's id
-
-    Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
-    available using extensions subclass (EwmhWindow.extensions.*)
-    """
 
     def __init__(self, winId: int, root: XWindow = defaultRoot):
+        """
+        Class to access application windows related features.
 
+        To instantiate this class only a window id is required. It's possible to retrieve this value in several ways:
+
+        - Target a specific window using an external module (e.g. PyWinCtl.getAllWindowsWithTitle(title))
+
+        - Retrieve it from your own application (e.g. PyQt's winId() or TKinter's frame())
+
+        Note that, although a root is also a window, these methods will not likely work with it.
+
+        Apart from given methods, there are some values you can use with python-xlib:
+
+        - display: XDisplay connection
+
+        - screen: screen Struct
+
+        - root: root X Window object
+
+        - rootWindow: object to access RootWindow methods
+
+        - xWindow: X Window object associated to current window
+
+        - id: current window's id
+
+        Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
+        available using extensions subclass (EwmhWindow.extensions.*)
+        """
         self.root = root
         if root.id != defaultRoot.id:
             self.display, self.screen, _ = getDisplayFromRoot(root.id)

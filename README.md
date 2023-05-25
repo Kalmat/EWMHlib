@@ -1,4 +1,4 @@
-|# EWMH-lib
+# EWMH-lib
 [![Type Checking](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml)
 
 Extended Window Manager Hints implementation in Python 3 and python-xlib, which allows to easily query and control 
