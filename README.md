@@ -65,9 +65,9 @@ Additional, non-EWMH features, related to low-level window properties like hints
 available using extensions subclass (EwmhWindow.extensions.*), see below.
 
 
-#### Extensions: Hints, Protocols and Events
+#### Extensions: Geometry, Hints, Protocols and Events
 
-Additional, non-EWMH features, related to low-level window properties like hints, protocols and events.
+Additional, non-EWMH features, related to low-level window properties like geometry, hints, protocols and events.
 
 Events loop example:
 
@@ -245,8 +245,9 @@ An (likely) incomplete list of EWMH-compliant window managers is (via Wikipedia,
 |         WMFS         |             |
 |         wmii         |             |
 |     Xfwm (Xfce)      |             |
-|        xmonad        |             |
+|        xmonad        |     (4)     |
 
 (1) Through 0.65 / from 0.70
 (2) As of 4.0.0
 (3) Releases following and including version 1.1.0 follow the EWMH standard
+(4) Must activate EWMH (XMonad.Hooks.EwmhDesktops)
