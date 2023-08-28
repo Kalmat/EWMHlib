@@ -3,12 +3,12 @@ import time
 import Xlib.protocol
 import Xlib.X
 
-from ewmhlib import Props, getAllDisplaysInfo, RootWindow, EwmhWindow
+from ewmhlib import Props, getDisplaysInfo, RootWindow, EwmhWindow
 
 
 def main():
     print("ALL DISPLAYS")
-    print(getAllDisplaysInfo())
+    print(getDisplaysInfo())
 
     root = RootWindow()
 
