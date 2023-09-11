@@ -2,15 +2,16 @@ import time
 
 import Xlib.protocol
 import Xlib.X
+import sys
 
-from ewmhlib import Props, getDisplaysInfo, RootWindow, EwmhWindow
+from ewmhlib import Props, getDisplaysInfo, EwmhRoot, EwmhWindow
 
 
 def main():
     print("ALL DISPLAYS")
     print(getDisplaysInfo())
 
-    root = RootWindow()
+    root = EwmhRoot()
 
     print("DESKTOP LAYOUT")
     print(root.getDesktopLayout())

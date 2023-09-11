@@ -24,49 +24,68 @@ import Xlib.ext
 import Xlib.xobject
 from Xlib.xobject.drawable import Window as XWindow
 
-from ewmhlib.Props import Root, DesktopLayout, Window, WindowType, State, StateAction, MoveResize, DataFormat, Mode, HintAction
-from ewmhlib.Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints, _XWindowAttributes
+from ._props import Root, DesktopLayout, Window, WindowType, State, StateAction, MoveResize, DataFormat, Mode, HintAction
+from ._structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints, _XWindowAttributes
 
 
-defaultDisplay = Xlib.display.Display()
-defaultScreen = defaultDisplay.screen()
-defaultRoot = defaultScreen.root
+class _Defaults:
+
+    def __init__(self):
+        self._display: Xlib.display.Display = Xlib.display.Display()
+        self._screen: Struct = self._display.screen()
+        self._root: XWindow = self._screen.root
+
+    def _checkDisplay(self):
+        try:
+            # Check if display connection has not been closed elsewhere
+            _ = self._display.get_display_name()
+        except:
+            self._display = Xlib.display.Display()
+            self._screen = self._display.screen()
+            self._root = self._screen.root
+
+    def getDefaultDisplay(self) -> Xlib.display.Display:
+        self._checkDisplay()
+        return self._display
+
+    def getDefaultScreen(self) -> Struct:
+        self._checkDisplay()
+        return self._screen
+
+    def getDefaultRoot(self) -> XWindow:
+        self._checkDisplay()
+        return self._root
+_myDefaults: _Defaults = _Defaults()
+defaultDisplay: Callable[[], Xlib.display.Display] = _myDefaults.getDefaultDisplay
+defaultScreen: Callable[[], Struct] = _myDefaults.getDefaultScreen
+defaultRoot: Callable[[], XWindow] = _myDefaults.getDefaultRoot
 
 
-def _getDisplaysCount() -> int:
-    count = 0
-    files: List[str] = os.listdir("/tmp/.X11-unix")
-    for d in files:
-        if d.startswith("X"):
-            name: str = ":" + d[1:]
-            try:
-                display: Xlib.display.Display = Xlib.display.Display(name)
-                display.close()
-                count += 1
-            except:
-                pass
-    return count
-
-
-displaysCount = _getDisplaysCount()
-
-
-def getDisplaysNames() -> List[str]:
-    displays: List[str] = []
-    if displaysCount > 1:
+def getDisplays() -> List[Xlib.display.Display]:
+    global _displays
+    for display in _displays:
+        try:
+            # Check if display connection has not been closed elsewhere
+            display.get_display_name()
+        except:
+            _displays = []
+            break
+    if not _displays and os.environ['XDG_SESSION_TYPE'].lower() != "wayland":
+        # Wayland adds a "fake" display (Typically ":1") that freezes when trying to get a connection. Using default
+        # Thanks to SamuMazzi - https://github.com/SamuMazzi for pointing out this issue
         files: List[str] = os.listdir("/tmp/.X11-unix")
         for d in files:
             if d.startswith("X"):
                 name: str = ":" + d[1:]
                 try:
-                    display: Xlib.display.Display = Xlib.display.Display(name)
-                    display.close()
-                    displays.append(name)
+                    _displays.append(Xlib.display.Display(name))
                 except:
                     pass
-    else:
-        displays.append(defaultDisplay.get_display_name())
-    return displays
+    if not _displays:
+        _displays = [defaultDisplay()]
+    return _displays
+_displays: List[Xlib.display.Display] = []
+displaysCount: int = len(getDisplays())
 
 
 def getDisplaysInfo() -> dict[str, DisplaysInfo]:
@@ -75,10 +94,11 @@ def getDisplaysInfo() -> dict[str, DisplaysInfo]:
 
     Returned dictionary has the following structure:
 
-    "name": display name (use Xlib.display.Display(name) to get a connection)
+        "display": display connection to access all display features and protocols
+        "name": display name
         "is_default": ''True'' if it's the default display, ''False'' otherwise
         "screens": List of sub-dict containing all screens owned by the display
-            "scrSeq": number of the screen (as per display.screen(M))
+            "scrSeq": number of the screen (as per display.screen(scrSeq))
             "screen": Struct containing all screen info
             "root": root window (Xlib Window) which belongs to the screen
             "is_default": ''True'' if it's the default screen/root, ''False'' otherwise
@@ -86,15 +106,15 @@ def getDisplaysInfo() -> dict[str, DisplaysInfo]:
     :return: dict with all displays, screens and roots info
     """
     dspInfo: dict[str, DisplaysInfo] = {}
-    for name in getDisplaysNames():
-        display = Xlib.display.Display(name)
+    for display in getDisplays():
+        name = display.get_display_name()
         screens: List[ScreensInfo] = []
         for s in range(display.screen_count()):
             try:
                 screen: Struct = display.screen(s)
                 screenInfo: ScreensInfo = {
                     "screen_number": str(s),
-                    "is_default": (screen.root.id == defaultRoot.id),
+                    "is_default": (screen.root.id == defaultRoot().id),
                     "screen": screen,
                     "root": screen.root
                 }
@@ -102,11 +122,11 @@ def getDisplaysInfo() -> dict[str, DisplaysInfo]:
             except:
                 pass
         displayInfo: DisplaysInfo = {
+            "display": display,
             "name": name,
-            "is_default": (display.get_display_name() == defaultDisplay.get_display_name()),
+            "is_default": (name == defaultDisplay().get_display_name()),
             "screens": screens
         }
-        display.close()
         dspInfo[name] = displayInfo
     return dspInfo
 
@@ -122,9 +142,8 @@ def getDisplayFromWindow(winId: int) -> Tuple[Xlib.display.Display, Struct, XWin
     # if res and hasattr(attr, "root"):
     #     return getDisplayFromRoot(attr.root)
     # else:
-    if displaysCount > 1 or defaultDisplay.screen_count() > 1:
-        for name in getDisplaysNames():
-            display = Xlib.display.Display(name)
+    if displaysCount > 1 or defaultDisplay().screen_count() > 1:
+        for display in getDisplays():
             atom: int = display.get_atom(Root.CLIENT_LIST)
             for s in range(display.screen_count()):
                 try:
@@ -135,8 +154,9 @@ def getDisplayFromWindow(winId: int) -> Tuple[Xlib.display.Display, Struct, XWin
                         return display, scr, r
                 except:
                     pass
-            display.close()
-    return defaultDisplay, defaultScreen, defaultRoot
+    return defaultDisplay(), defaultScreen(), defaultRoot()
+getScreenFromWindow = getDisplayFromWindow
+getRootFromWindow = getDisplayFromWindow
 
 
 def getDisplayFromRoot(rootId: Optional[int]) -> Tuple[Xlib.display.Display, Struct, XWindow]:
@@ -147,9 +167,8 @@ def getDisplayFromRoot(rootId: Optional[int]) -> Tuple[Xlib.display.Display, Str
     :param rootId: id of the target root
     :return: tuple containing display connection, screen struct and root window
     """
-    if rootId and rootId != defaultRoot.id and (displaysCount > 1 or defaultDisplay.screen_count() > 1):
-        for name in getDisplaysNames():
-            display = Xlib.display.Display(name)
+    if rootId and rootId != defaultRoot().id and (displaysCount > 1 or defaultDisplay().screen_count() > 1):
+        for display in getDisplays():
             for s in range(display.screen_count()):
                 try:
                     scr: Struct = display.screen(s)
@@ -158,13 +177,32 @@ def getDisplayFromRoot(rootId: Optional[int]) -> Tuple[Xlib.display.Display, Str
                         return display, scr, r
                 except:
                     pass
-            display.close()
-    return defaultDisplay, defaultScreen, defaultRoot
+    return defaultDisplay(), defaultScreen(), defaultRoot()
+getScreenFromRoot = getDisplayFromRoot
+
+
+def _getRoots() -> List[XWindow]:
+    roots: List[XWindow] = []
+    for display in getDisplays():
+        for i in range(display.screen_count()):
+            try:
+                screen = display.screen(i)
+                roots.append(screen.root)
+            except:
+                pass
+    if not roots:
+        roots.append(defaultRoot())
+    return roots
+
+
+def getRoots() -> List[XWindow]:
+    return _roots
+_roots: List[XWindow] = _getRoots()
 
 
 def getProperty(window: XWindow, prop: Union[str, int],
                 prop_type: int = Xlib.X.AnyPropertyType,
-                display: Xlib.display.Display = defaultDisplay) -> Optional[Xlib.protocol.request.GetProperty]:
+                display: Xlib.display.Display = defaultDisplay()) -> Optional[Xlib.protocol.request.GetProperty]:
     """
     Get given window/root property
 
@@ -183,7 +221,7 @@ def getProperty(window: XWindow, prop: Union[str, int],
 
 def changeProperty(window: XWindow, prop: Union[str, int], data: Union[List[int], str],
                    prop_type: int = Xlib.Xatom.ATOM, propMode: int = Xlib.X.PropModeReplace,
-                   display: Xlib.display.Display = defaultDisplay):
+                   display: Xlib.display.Display = defaultDisplay()):
     """
     Change given window/root property
 
@@ -210,7 +248,7 @@ def changeProperty(window: XWindow, prop: Union[str, int], data: Union[List[int]
 
 
 def sendMessage(winId: int, prop: Union[str, int], data: Union[List[int], str],
-                display: Xlib.display.Display = defaultDisplay, root: XWindow = defaultRoot):
+                display: Xlib.display.Display = defaultDisplay(), root: XWindow = defaultRoot()):
     """
     Send Client Message to given window/root
 
@@ -238,7 +276,7 @@ def sendMessage(winId: int, prop: Union[str, int], data: Union[List[int], str],
 
 
 def getPropertyValue(prop: Optional[Xlib.protocol.request.GetProperty], text: bool = False,
-                     display: Xlib.display.Display = defaultDisplay) -> Optional[Union[List[int], List[str]]]:
+                     display: Xlib.display.Display = defaultDisplay()) -> Optional[Union[List[int], List[str]]]:
     """
     Extract data from retrieved window/root property
 
@@ -266,11 +304,11 @@ def getPropertyValue(prop: Optional[Xlib.protocol.request.GetProperty], text: bo
     return None
 
 
-class RootWindow:
+class EwmhRoot:
     """
     Base class to access root features.
 
-    To get a RootWindow object it's necessary to pass the target root id. This can be achieved in several ways:
+    To get a EwmhRoot object it's necessary to pass the target root id. This can be achieved in several ways:
 
     - You already have a root, so pass root.id param
 
@@ -292,7 +330,7 @@ class RootWindow:
 
     - id: root window id
 
-    WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (RootWindow.wmProtocols.Ping/Sync)
+    WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (EwmhRoot.wmProtocols.Ping/Sync)
     """
 
     def __init__(self, root: Optional[Union[XWindow, int]] = None):
@@ -601,7 +639,7 @@ class RootWindow:
 
     def setDesktopLayout(self, orientation: Union[int, DesktopLayout], columns: int, rows: int, starting_corner: Union[int, DesktopLayout]):
         """
-        Values (as per RootWindow.DesktopLayout):
+        Values (as per EwmhRoot.DesktopLayout):
           _NET_WM_ORIENTATION_HORZ 0
           _NET_WM_ORIENTATION_VERT 1
 
@@ -887,7 +925,7 @@ class RootWindow:
 
     class _WmProtocols:
         # Is all this necessary/interesting?
-        # Besides, should they be included within RootWindow class or outside?
+        # Besides, should they be included within EwmhRoot class or outside?
 
         def __init__(self, display: Xlib.display.Display, root: XWindow):
             self._display = display
@@ -968,7 +1006,7 @@ class RootWindow:
                         self._display, self._root)
 
 
-defaultRootWindow = RootWindow()
+defaultEwmhRoot = EwmhRoot()
 
 
 class EwmhWindow:
@@ -991,7 +1029,7 @@ class EwmhWindow:
 
     - root: root X Window object
 
-    - rootWindow: object to access RootWindow methods
+    - EwmhRoot: object to access EwmhRoot methods
 
     - xWindow: X Window object associated to current window
 
@@ -1013,7 +1051,7 @@ class EwmhWindow:
             self.xWindow = self.display.create_resource_object('window', self.id)
         else:
             raise ValueError
-        self.rootWindow: RootWindow = defaultRootWindow if self.root.id == defaultRoot.id else RootWindow(self.root)
+        self.ewmhRoot: EwmhRoot = defaultEwmhRoot if self.root.id == defaultRoot().id else EwmhRoot(self.root)
         self.extensions = _Extensions(self.id, self.display, self.root)
 
         self._currDesktop = os.environ['XDG_CURRENT_DESKTOP'].lower()
@@ -1049,7 +1087,7 @@ class EwmhWindow:
         :param prop: Property/atom of the event in int or str format
         :param data: Data related to the event. It can be a string or a list of up to 5 integers
         :param prop_type: Property type (e.g. X.AnyPropertyType or Xatom.STRING)
-        :param propMode: whether to Replace/Append/Prepend (Mode.*) the property in relation to the rest of
+        :param propMode: whether to Replace/Append/Prepend (Mode.*) the property in respect to the rest of
                     existing properties
         """
         changeProperty(self.xWindow, prop, data, prop_type, propMode, self.display)
@@ -1064,7 +1102,17 @@ class EwmhWindow:
 
         :return: name of the window as str or None (nothing obtained)
         """
-        return self.xWindow.get_wm_name()
+        # Xlib's get_wm_name() returns empty strings in some cases
+        # Thanks to cedricscheepers - https://github.com/cedricscheepers for pointing out this issue
+        ret: Optional[Xlib.protocol.request.GetProperty] = self.getProperty(Window.NAME)
+        res: Optional[Union[List[int], List[str]]] = getPropertyValue(ret, display=self.display)
+        if not res or (res and not res[0]):
+            # Thanks to ReaperMantis - https://github.com/ReaperMantis for finding this additional solution!
+            ret = self.getProperty(Window.LEGACY_NAME)
+            res = getPropertyValue(ret, display=self.display)
+        if res:
+            return str(res[0])
+        return None
 
     def setName(self, name: str):
         """
@@ -1072,7 +1120,7 @@ class EwmhWindow:
 
         :param name: new name as string
         """
-        self.xWindow.set_wm_name(name)
+        self.changeProperty(Window.NAME, name)
 
     def getVisibleName(self) -> Optional[str]:
         """
@@ -1178,8 +1226,8 @@ class EwmhWindow:
         :param newDesktop: target desktop index (as per getNumberOfDesktops())
         :param userAction: source indication (user or pager/manager action). Defaults to True
         """
-        numDesktops: Optional[int] = self.rootWindow.getNumberOfDesktops()
-        currDesktop: Optional[int] = self.rootWindow.getCurrentDesktop()
+        numDesktops: Optional[int] = self.ewmhRoot.getNumberOfDesktops()
+        currDesktop: Optional[int] = self.ewmhRoot.getCurrentDesktop()
         if numDesktops is not None and 0 <= newDesktop <= numDesktops and currDesktop is not None and newDesktop != currDesktop:
             self.sendMessage(Window.DESKTOP, [newDesktop, Xlib.X.CurrentTime, 2 if userAction else 1])
 
@@ -2572,7 +2620,7 @@ def _getWindowParent(win: XWindow, rootId: int) -> int:
     return win.id
 
 
-def _getWindowGeom(win: XWindow, rootId: int = defaultRoot.id) -> Tuple[int, int, int, int]:
+def _getWindowGeom(win: XWindow, rootId: int = defaultRoot().id) -> Tuple[int, int, int, int]:
     # https://stackoverflow.com/questions/12775136/get-window-position-and-size-in-python-with-xlib - mgalgs
     geom = win.get_geometry()
     x = geom.x
@@ -2602,7 +2650,7 @@ def _xlibGetAllWindows(parent: Optional[XWindow] = None, title: str = "", klass:
     :return: List of windows objects (X-Window)
     """
 
-    parentWin: XWindow = parent or defaultRoot
+    parentWin: XWindow = parent or defaultRoot()
     allWindows: List[XWindow] = []
 
     def findit(hwnd: XWindow) -> None:
@@ -2613,6 +2661,7 @@ def _xlibGetAllWindows(parent: Optional[XWindow] = None, title: str = "", klass:
             children = []
         for child in children:
             try:
+                # This returns empty name in some cases... must use getProperty!!!!
                 ret: Optional[str] = child.get_wm_name()
             except:
                 ret = None
@@ -2636,7 +2685,7 @@ def _xlibGetAllWindows(parent: Optional[XWindow] = None, title: str = "", klass:
 
 
 def _createSimpleWindow(parent: XWindow, x: int, y: int, width: int, height: int, override: bool = False,
-                        inputOnly: bool = False, display: Xlib.display.Display = defaultDisplay) -> EwmhWindow:
+                        inputOnly: bool = False, display: Xlib.display.Display = defaultDisplay()) -> EwmhWindow:
     if inputOnly:
         mask = Xlib.X.ButtonPressMask | Xlib.X.ButtonReleaseMask | Xlib.X.KeyPressMask | Xlib.X.KeyReleaseMask
     else:
@@ -2710,7 +2759,7 @@ def _createTransient(display: Xlib.display.Display, parent: XWindow, transient_f
     # transientWindow.setWmWindowType(WindowType.DESKTOP)
     # MODAL doesn't behave as expected (it doesn't block main window)
     transientWindow.changeWmState(StateAction.ADD, State.MODAL, State.BELOW)
-    # x, y, w, h = _getWindowGeom(transientWindow.xWindow, defaultRoot)
+    # x, y, w, h = _getWindowGeom(transientWindow.xWindow, defaultRoot())
     # normal_hints = transient_for.get_wm_normal_hints()
     # normal_hints.flags = 808
     # normal_hints.min_width = normal_hints.max_width = w + gaps[2]
@@ -2795,7 +2844,7 @@ def _XGetAttributes(winId: int, dpyName: str = "") -> Tuple[bool, _XWindowAttrib
     if xlib:
         try:
             if not dpyName:
-                dpyName = defaultDisplay.get_display_name()
+                dpyName = defaultDisplay().get_display_name()
             dpy: int = xlib.XOpenDisplay(dpyName.encode())
             xlib.XGetWindowAttributes(dpy, winId, byref(attr))
             xlib.XCloseDisplay(dpy)

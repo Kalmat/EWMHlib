@@ -1,10 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
+
 __all__ = [
-    "version", "displaysCount", "getDisplaysNames", "getDisplaysInfo", "getDisplayFromRoot", "getDisplayFromWindow",
+    "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots",
+    "defaultDisplay", "defaultScreen", "defaultRoot", "defaultEwmhRoot",
+    "getDisplayFromRoot", "getScreenFromRoot",
+    "getDisplayFromWindow", "getScreenFromWindow", "getRootFromWindow",
     "getProperty", "getPropertyValue", "changeProperty", "sendMessage",
-    "defaultDisplay", "defaultScreen", "defaultRoot", "defaultRootWindow", "RootWindow", "EwmhWindow",
+    "EwmhRoot", "EwmhWindow",
     "Props", "Structs"
 ]
 
@@ -16,8 +21,11 @@ def version(numberOnly: bool = True):
     return ("" if numberOnly else "EWMHlib-")+__version__
 
 
-from ._main import (displaysCount, getDisplaysNames, getDisplaysInfo, getDisplayFromRoot, getDisplayFromWindow,
+from ._main import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
+                    defaultDisplay, defaultScreen, defaultRoot, defaultEwmhRoot,
+                    getDisplayFromRoot, getScreenFromRoot,
+                    getDisplayFromWindow, getScreenFromWindow, getRootFromWindow,
                     getProperty, getPropertyValue, changeProperty, sendMessage,
-                    defaultDisplay, defaultScreen, defaultRoot, RootWindow, defaultRootWindow, EwmhWindow,
+                    EwmhRoot, EwmhWindow,
                     Props, Structs
                     )

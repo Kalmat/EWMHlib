@@ -1,3 +1,5 @@
 EWMHlib authors, contributors and maintainers:
 
 Kalmat https://github.com/Kalmat
+Mestrelion https://github.com/MestreLion
+ReaperMantis https://github.com/ReaperMantis
