@@ -149,8 +149,8 @@ def getDisplayFromRoot(rootId: Optional[int]) -> Tuple[Xlib.display.Display, Str
 getScreenFromRoot = getDisplayFromRoot
 
 
-def _getAllRootsInfo() -> List[List[Union[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]]:
-    rootsInfo: List[List[Union[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]] = []
+def _getAllRootsInfo() -> List[List[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]:
+    rootsInfo: List[List[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = [[]]
     for display in getDisplays():
         for i in range(display.screen_count()):
             try:
@@ -164,7 +164,7 @@ def _getAllRootsInfo() -> List[List[Union[Xlib.display.Display, Struct, XWindow,
         res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(defaultRoot)
         rootsInfo.append([defaultDisplay, defaultScreen, defaultRoot, res])
     return rootsInfo
-_allRootsInfo: List[List[Union[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]] = _getAllRootsInfo()
+_allRootsInfo: List[List[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = _getAllRootsInfo()
 
 
 def getAllRootsInfo(forceUpdate: bool = False) -> List[
