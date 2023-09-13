@@ -24,8 +24,8 @@ import Xlib.ext
 import Xlib.xobject
 from Xlib.xobject.drawable import Window as XWindow
 
-from Props import Root, DesktopLayout, Window, WindowType, State, StateAction, MoveResize, DataFormat, Mode, HintAction
-from Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints
+from ewmhlib.Props import Root, DesktopLayout, Window, WindowType, State, StateAction, MoveResize, DataFormat, Mode, HintAction
+from ewmhlib.Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints
 # from ewmhlib.Structs._structs import _XWindowAttributes
 
 
