@@ -149,22 +149,22 @@ def getDisplayFromRoot(rootId: Optional[int]) -> Tuple[Xlib.display.Display, Str
 getScreenFromRoot = getDisplayFromRoot
 
 
-def _getAllRootsInfo() -> List[List[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]:
-    rootsInfo: List[List[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = [[]]
+def _getAllRootsInfo() -> List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]:
+    res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(defaultRoot)
+    rootsInfo: List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = [(defaultDisplay, defaultScreen, defaultRoot, res)]
+    defaultName = defaultDisplay.get_display_name()
     for display in getDisplays():
-        for i in range(display.screen_count()):
-            try:
-                screen: Struct = display.screen(i)
-                root: XWindow = screen.root
-                res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(root)
-                rootsInfo.append([display, screen, root, res])
-            except:
-                pass
-    if not _allRootsInfo:
-        res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(defaultRoot)
-        rootsInfo.append([defaultDisplay, defaultScreen, defaultRoot, res])
+        if display.get_display_name() != defaultName:
+            for i in range(display.screen_count()):
+                try:
+                    screen: Struct = display.screen(i)
+                    root: XWindow = screen.root
+                    res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(root)
+                    rootsInfo.append((display, screen, root, res))
+                except:
+                    pass
     return rootsInfo
-_allRootsInfo: List[List[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = _getAllRootsInfo()
+_allRootsInfo: List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = _getAllRootsInfo()
 
 
 def getAllRootsInfo(forceUpdate: bool = False) -> List[
