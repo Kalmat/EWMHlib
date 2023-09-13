@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from ._ewmhlib import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
+from ._ewmhlib import (displaysCount, getDisplays, getDisplaysInfo, getRoots, getAllRootsInfo,
                        defaultDisplay, defaultScreen, defaultRoot, defaultEwmhRoot,
                        getDisplayFromRoot, getScreenFromRoot,
                        getDisplayFromWindow, getScreenFromWindow, getRootFromWindow,

@@ -3,7 +3,7 @@
 
 
 __all__ = [
-    "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots",
+    "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots", "getAllRootsInfo",
     "defaultDisplay", "defaultScreen", "defaultRoot", "defaultEwmhRoot",
     "getDisplayFromRoot", "getScreenFromRoot",
     "getDisplayFromWindow", "getScreenFromWindow", "getRootFromWindow",
@@ -20,7 +20,7 @@ def version(numberOnly: bool = True):
     return ("" if numberOnly else "EWMHlib-")+__version__
 
 
-from ._main import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
+from ._main import (displaysCount, getDisplays, getDisplaysInfo, getRoots, getAllRootsInfo,
                     defaultDisplay, defaultScreen, defaultRoot, defaultEwmhRoot,
                     getDisplayFromRoot, getScreenFromRoot,
                     getDisplayFromWindow, getScreenFromWindow, getRootFromWindow,
