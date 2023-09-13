@@ -159,7 +159,7 @@ def _getAllRootsInfo() -> List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib
                 try:
                     screen: Struct = display.screen(i)
                     root: XWindow = screen.root
-                    res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(root)
+                    res = randr.get_screen_resources(root)
                     rootsInfo.append((display, screen, root, res))
                 except:
                     pass
