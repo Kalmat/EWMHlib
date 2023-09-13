@@ -167,13 +167,12 @@ def _getAllRootsInfo() -> List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib
 _allRootsInfo: List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = _getAllRootsInfo()
 
 
-def getAllRootsInfo(forceUpdate: bool = False) -> List[
-    List[Union[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]]:
+def getAllRootsInfo(forceUpdate: bool = False) -> List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]:
     """
     Get all roots windows objects and related information.
 
     :param forceUpdate: roots info is retrieved at the time of importing the module, and remains static. Set this to ''True'' to force updating it.
-    :return: list of lists, each of them containing: display, screen, root and screen resources
+    :return: list of tuples, each of them containing: display, screen, root and screen resources
     """
     global _allRootsInfo
     if forceUpdate:
