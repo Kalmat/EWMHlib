@@ -11,7 +11,7 @@ import threading
 import time
 from typing import Optional, cast, Callable, Union, List, Tuple, Iterable
 
-from ctypes import cdll, byref, CDLL
+from ctypes import cdll, CDLL
 from ctypes.util import find_library
 
 import Xlib.display
@@ -24,8 +24,9 @@ import Xlib.ext
 import Xlib.xobject
 from Xlib.xobject.drawable import Window as XWindow
 
-from ._props import Root, DesktopLayout, Window, WindowType, State, StateAction, MoveResize, DataFormat, Mode, HintAction
-from ._structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints, _XWindowAttributes
+from Props import Root, DesktopLayout, Window, WindowType, State, StateAction, MoveResize, DataFormat, Mode, HintAction
+from Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints
+# from ewmhlib.Structs._structs import _XWindowAttributes
 
 
 class _Defaults:
@@ -1106,10 +1107,10 @@ class EwmhWindow:
         # Thanks to cedricscheepers - https://github.com/cedricscheepers for pointing out this issue
         ret: Optional[Xlib.protocol.request.GetProperty] = self.getProperty(Window.NAME)
         res: Optional[Union[List[int], List[str]]] = getPropertyValue(ret, display=self.display)
-        if not res or (res and not res[0]):
-            # Thanks to ReaperMantis - https://github.com/ReaperMantis for finding this additional solution!
-            ret = self.getProperty(Window.LEGACY_NAME)
-            res = getPropertyValue(ret, display=self.display)
+        if res:
+            return str(res[0])
+        ret = self.getProperty(Window.LEGACY_NAME)
+        res = getPropertyValue(ret, display=self.display)
         if res:
             return str(res[0])
         return None
@@ -2812,46 +2813,46 @@ def _loadXcompLibrary() -> Optional[CDLL]:
     return _xcomp
 
 
-def _XGetAttributes(winId: int, dpyName: str = "") -> Tuple[bool, _XWindowAttributes]:
-    """
-        int x, y;                     /* location of window */
-        int width, height;            /* width and height of window */
-        int border_width;             /* border width of window */
-        int depth;                    /* depth of window */
-        Visual *visual;               /* the associated visual structure */
-        Window root;                  /* root of screen containing window */
-        int class;                    /* InputOutput, InputOnly*/
-        int bit_gravity;              /* one of the bit gravity values */
-        int win_gravity;              /* one of the window gravity values */
-        int backing_store;            /* NotUseful, WhenMapped, Always */
-        unsigned long backing_planes; /* planes to be preserved if possible */
-        unsigned long backing_pixel;  /* value to be used when restoring planes */
-        Bool save_under;              /* boolean, should bits under be saved? */
-        Colormap colormap;            /* color map to be associated with window */
-        Bool map_installed;           /* boolean, is color map currently installed*/
-        int map_state;                /* IsUnmapped, IsUnviewable, IsViewable */
-        long all_event_masks;         /* set of events all people have interest in*/
-        long your_event_mask;         /* my event mask */
-        long do_not_propagate_mask;   /* set of events that should not propagate */
-        Bool override_redirect;       /* boolean value for override-redirect */
-        Screen *screen;               /* back pointer to correct screen */
-    """
-    res: bool = False
-    attr: _XWindowAttributes = _XWindowAttributes()
-
-    xlib: Optional[CDLL] = _loadX11Library()
-
-    if xlib:
-        try:
-            if not dpyName:
-                dpyName = defaultDisplay().get_display_name()
-            dpy: int = xlib.XOpenDisplay(dpyName.encode())
-            xlib.XGetWindowAttributes(dpy, winId, byref(attr))
-            xlib.XCloseDisplay(dpy)
-            res = True
-        except:
-            pass
-    return res, attr
+# def _XGetAttributes(winId: int, dpyName: str = "") -> Tuple[bool, _XWindowAttributes]:
+#     """
+#         int x, y;                     /* location of window */
+#         int width, height;            /* width and height of window */
+#         int border_width;             /* border width of window */
+#         int depth;                    /* depth of window */
+#         Visual *visual;               /* the associated visual structure */
+#         Window root;                  /* root of screen containing window */
+#         int class;                    /* InputOutput, InputOnly*/
+#         int bit_gravity;              /* one of the bit gravity values */
+#         int win_gravity;              /* one of the window gravity values */
+#         int backing_store;            /* NotUseful, WhenMapped, Always */
+#         unsigned long backing_planes; /* planes to be preserved if possible */
+#         unsigned long backing_pixel;  /* value to be used when restoring planes */
+#         Bool save_under;              /* boolean, should bits under be saved? */
+#         Colormap colormap;            /* color map to be associated with window */
+#         Bool map_installed;           /* boolean, is color map currently installed*/
+#         int map_state;                /* IsUnmapped, IsUnviewable, IsViewable */
+#         long all_event_masks;         /* set of events all people have interest in*/
+#         long your_event_mask;         /* my event mask */
+#         long do_not_propagate_mask;   /* set of events that should not propagate */
+#         Bool override_redirect;       /* boolean value for override-redirect */
+#         Screen *screen;               /* back pointer to correct screen */
+#     """
+#     res: bool = False
+#     attr: _XWindowAttributes = _XWindowAttributes()
+#
+#     xlib: Optional[CDLL] = _loadX11Library()
+#
+#     if xlib:
+#         try:
+#             if not dpyName:
+#                 dpyName = defaultDisplay().get_display_name()
+#             dpy: int = xlib.XOpenDisplay(dpyName.encode())
+#             xlib.XGetWindowAttributes(dpy, winId, byref(attr))
+#             xlib.XCloseDisplay(dpy)
+#             res = True
+#         except:
+#             pass
+#     return res, attr
 
     # Leaving this as reference of using X11 library
     # https://github.com/evocount/display-management/blob/c4f58f6653f3457396e44b8c6dc97636b18e8d8a/displaymanagement/rotation.py

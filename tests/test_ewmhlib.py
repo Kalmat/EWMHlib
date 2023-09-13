@@ -2,7 +2,6 @@ import time
 
 import Xlib.protocol
 import Xlib.X
-import sys
 
 from ewmhlib import Props, getDisplaysInfo, EwmhRoot, EwmhWindow
 

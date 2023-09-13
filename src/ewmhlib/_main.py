@@ -8,5 +8,5 @@ from ._ewmhlib import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
                        getProperty, getPropertyValue, changeProperty, sendMessage,
                        EwmhRoot, EwmhWindow
                        )
-from . import _props as Props
-from . import _structs as Structs
+import Props
+import Structs

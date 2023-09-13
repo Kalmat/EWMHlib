@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import sys
 
 __all__ = [
     "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots",
