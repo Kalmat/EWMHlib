@@ -1096,6 +1096,8 @@ class EwmhWindow:
         # Thanks to cedricscheepers - https://github.com/cedricscheepers for pointing out this issue
         ret: Optional[Xlib.protocol.request.GetProperty] = self.getProperty(Window.NAME)
         res: Optional[Union[List[int], List[str]]] = getPropertyValue(ret, display=self.display)
+        # Some (older) apps do not set _NET_WM_NAME property, but WM_NAME. Using it as fallback
+        # Thans to ReaperMantis - https://github.com/ReaperMantis for finding a solution!
         if res:
             return str(res[0])
         ret = self.getProperty(Window.LEGACY_NAME)
