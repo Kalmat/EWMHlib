@@ -35,13 +35,13 @@ setup(
     package_data={"ewmhlib": ["py.typed"]},
     test_suite='tests',
     install_requires=[
-        "python-xlib>=0.21; sys_platform == 'linux'"
+        "python-xlib>=0.21; sys_platform == 'linux'",
+        "typing_extensions>=4.4.0"
     ],
     extras_require={
         'dev': [
             "types-setuptools>=65.5",
             "mypy>=0.990",
-            "typing_extensions>=4.4.0",
             "types-python-xlib>=0.32"
         ]
     },
