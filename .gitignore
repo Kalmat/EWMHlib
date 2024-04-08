@@ -1,0 +1,8 @@
+/dist/
+/tests/test.py
+/img.png
+/make_wheel.bat
+/pip_make.bat
+/pip_upload.bat
+/build/
+/.mypy_cache/
