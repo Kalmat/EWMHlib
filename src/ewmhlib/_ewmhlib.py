@@ -18,13 +18,12 @@ import Xlib.X
 import Xlib.Xatom
 import Xlib.Xutil
 import Xlib.ext
-from Xlib.ext import randr
 import Xlib.xobject
 from Xlib.xobject.drawable import Window as XWindow
 
-from ewmhlib.Props import (Root, DesktopLayout, Window, WindowType, State, StateAction,
+from .Props import (Root, DesktopLayout, Window, WindowType, State, StateAction,
                            MoveResize, DataFormat, Mode, HintAction)
-from ewmhlib.Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints
+from .Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints
 
 
 defaultDisplay: Xlib.display.Display = Xlib.display.Display()
@@ -32,17 +31,14 @@ defaultScreen: Struct = defaultDisplay.screen()
 defaultRoot: XWindow = defaultScreen.root
 
 
-def getDisplays(forceUpdate: bool = False) -> List[Xlib.display.Display]:
+def _getDisplays() -> List[Xlib.display.Display]:
     """
     Get a list of connections to all existing Displays.
 
-    :param forceUpdate: display connections are set at the time of importing the module, and remains static. Set this to ''True'' to force updating it.
     :return: list of display connections
     """
-    global _displays
-    if forceUpdate:
-        _displays = []
-    if not _displays and os.environ['XDG_SESSION_TYPE'].lower() != "wayland":
+    displays: List[Xlib.display.Display] = []
+    if os.environ.get('XDG_SESSION_TYPE', "").lower() != "wayland":
         # Wayland adds a "fake" display (typically ":1") that freezes when trying to get a connection. Using default
         # Thanks to SamuMazzi - https://github.com/SamuMazzi for pointing out this issue
         files: List[str] = os.listdir("/tmp/.X11-unix")
@@ -50,14 +46,19 @@ def getDisplays(forceUpdate: bool = False) -> List[Xlib.display.Display]:
             if d.startswith("X"):
                 name: str = d.replace("X", ":", 1)
                 try:
-                    _displays.append(Xlib.display.Display(name))
+                    displays.append(Xlib.display.Display(name))
                 except:
                     pass
-    if not _displays:
-        _displays = [defaultDisplay]
+    if not displays:
+        displays = [defaultDisplay]
+    return displays
+_displays: List[Xlib.display.Display] = _getDisplays()
+displaysCount: int = len(_displays)
+
+
+def getDisplays() -> List[Xlib.display.Display]:
+    global _displays
     return _displays
-_displays: List[Xlib.display.Display] = []
-displaysCount: int = len(getDisplays())
 
 
 def getDisplaysInfo() -> dict[str, DisplaysInfo]:
@@ -84,11 +85,12 @@ def getDisplaysInfo() -> dict[str, DisplaysInfo]:
         for s in range(display.screen_count()):
             try:
                 screen: Struct = display.screen(s)
+                root = screen.root
                 screenInfo: ScreensInfo = {
                     "screen_number": str(s),
-                    "is_default": (screen.root.id == defaultRoot.id),
+                    "is_default": bool(root.id == defaultRoot.id),
                     "screen": screen,
-                    "root": screen.root
+                    "root": root
                 }
                 screens.append(screenInfo)
             except:
@@ -111,9 +113,9 @@ def getDisplayFromWindow(winId: int) -> Tuple[Xlib.display.Display, Struct, XWin
     :return: tuple containing display connection, screen struct and root window
     """
     if displaysCount > 1 or defaultDisplay.screen_count() > 1:
-        global _rootsInfo
-        for rootData in _rootsInfo:
-            display, screen, root, res = rootData
+        rootsInfo = getRoots()
+        for rootData in rootsInfo:
+            display, screen, root = rootData
             atom: int = display.get_atom(Root.CLIENT_LIST)
             ret: Optional[Xlib.protocol.request.GetProperty] = root.get_full_property(atom, Xlib.X.AnyPropertyType)
             if ret and hasattr(ret, "value") and winId in ret.value:
@@ -132,61 +134,46 @@ def getDisplayFromRoot(rootId: Optional[int]) -> Tuple[Xlib.display.Display, Str
     :return: tuple containing display connection, screen struct and root window
     """
     if rootId and rootId != defaultRoot.id and (displaysCount > 1 or defaultDisplay.screen_count() > 1):
-        global _rootsInfo
-        for rootData in _rootsInfo:
-            display, screen, root, res = rootData
+        rootsInfo = getRoots()
+        for rootData in rootsInfo:
+            display, screen, root = rootData
             if rootId == root.id:
                 return display, screen, root
     return defaultDisplay, defaultScreen, defaultRoot
 getScreenFromRoot = getDisplayFromRoot
 
 
-def _getRootsInfo() -> Tuple[List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]], List[XWindow]]:
-    res: Xlib.ext.randr.GetScreenResources = randr.get_screen_resources(defaultRoot)
-    rootsInfo: List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]] = [(defaultDisplay, defaultScreen, defaultRoot, res)]
-    roots: List[XWindow] = [defaultRoot]
-    displays: List[Xlib.display.Display] = getDisplays()
-    if len(displays) > 1 or defaultDisplay.screen_count() > 1:
+def _getRoots(updateDisplays: bool = False) -> List[Tuple[Xlib.display.Display, Struct, XWindow]]:
+    rootsInfo: List[Tuple[Xlib.display.Display, Struct, XWindow]] = [(defaultDisplay, defaultScreen, defaultRoot)]
+    global displaysCount
+    if updateDisplays or displaysCount > 1 or defaultDisplay.screen_count() > 1:
+        if updateDisplays:
+            display = Xlib.display.Display()
+            screen: Struct = display.screen()
+            rootsInfo = [(display, screen, screen.root)]
+            displays: List[Xlib.display.Display] = _getDisplays()
+        else:
+            displays = getDisplays()
         for display in displays:
             for i in range(display.screen_count()):
                 try:
-                    screen: Struct = display.screen(i)
+                    screen = display.screen(i)
                     root: XWindow = screen.root
                     if root.id != defaultRoot.id:
-                        res = randr.get_screen_resources(root)
-                        rootsInfo.append((display, screen, root, res))
-                        roots.append(root)
+                        rootsInfo.append((display, screen, root))
                 except:
                     pass
-    return rootsInfo, roots
-_rootsInfo, _roots = _getRootsInfo()
+    return rootsInfo
+_roots: List[Tuple[Xlib.display.Display, Struct, XWindow]] = _getRoots()
 
 
-def getRootsInfo(forceUpdate: bool = False) -> List[Tuple[Xlib.display.Display, Struct, XWindow, Xlib.ext.randr.GetScreenResources]]:
-    """
-    Get all roots windows objects and related information.
-
-    :param forceUpdate: roots info is retrieved at the time of importing the module, and remains static. Set this to ''True'' to force updating it.
-    :return: list of tuples, each of them containing: display connection, screen struct, root window and screen resources
-    """
-    global _rootsInfo
-    if forceUpdate:
-        global _roots
-        _rootsInfo, _roots = _getRootsInfo()
-    return _rootsInfo
-
-
-def getRoots(forceUpdate: bool = False) -> List[XWindow]:
+def getRoots() -> List[Tuple[Xlib.display.Display, Struct, XWindow]]:
     """
     Get root windows objects.
 
-    :param forceUpdate: roots info is retrieved at the time of importing the module, and remains static. Set this to ''True'' to force updating it.
     :return: list of X-Window objects
     """
     global _roots
-    if forceUpdate:
-        global _rootsInfo
-        _rootsInfo, _roots = _getRootsInfo()
     return _roots
 
 
@@ -276,9 +263,11 @@ def getPropertyValue(prop: Optional[Xlib.protocol.request.GetProperty], text: bo
     :return: extracted property data (as a list of integers or strings) or None
     """
     if prop and hasattr(prop, "value"):
-        # Value is either bytes (separated by '\x00' when multiple values) or array.array of integers.
+        # Value is either str, bytes (separated by '\x00' when multiple values) or array.array of integers.
         # The type of array values is stored in array.typecode ('I' in this case).
         valueData: Union[array.array[int], bytes] = prop.value
+        if isinstance(valueData, str) or isinstance(valueData, int):
+            return [valueData]
         if isinstance(valueData, bytes):
             resultStr: List[str] = [a for a in valueData.decode().split("\x00") if a]
             return resultStr
@@ -1044,7 +1033,7 @@ class EwmhWindow:
         self.ewmhRoot: EwmhRoot = defaultEwmhRoot if self.root.id == defaultRoot.id else EwmhRoot(self.root)
         self.extensions = _Extensions(self.id, self.display, self.root)
 
-        self._currDesktop = os.environ['XDG_CURRENT_DESKTOP'].lower()
+        self._currDesktop = os.environ.get('XDG_CURRENT_DESKTOP', '').lower()
 
     def getProperty(self, prop: Union[str, int], prop_type: int = Xlib.X.AnyPropertyType) \
             -> Optional[Xlib.protocol.request.GetProperty]:

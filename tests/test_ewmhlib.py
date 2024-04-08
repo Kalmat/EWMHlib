@@ -1,8 +1,10 @@
+import sys
 import time
 
 import Xlib.protocol
 import Xlib.X
 
+sys.path.insert(0, "../src/")
 from ewmhlib import Props, getDisplaysInfo, EwmhRoot, EwmhWindow
 
 
