@@ -8,17 +8,19 @@ It also adds some additional, useful features like managing hints and handling e
 
 For more information, refer to official documentation at: https://specifications.freedesktop.org/wm-spec/latest/
 
-**Warning: new Display Server used by GNOME in Ubuntu, Wayland, is not EWMH-compliant, so some features will not work**
+This module has been tested OK in Ubuntu/GNOME, Mint/Cinnamon and Manjaro/KDE. If you have issues in other EWMH-compliant environments, do not hesitate to [open an issue](https://github.com/Kalmat/EWMHlib/issues) in the [project homepage](https://github.com/Kalmat/EWMHlib)
+
+**Warning: new Display Server used by GNOME in Ubuntu, Wayland, is not EWMH-compliant, so many features will not work**
 
 
-### RootWindow: Root queries, changes and messages
+### EwmhRoot: Root queries, changes and messages
 
 Class to access root features.
 
 If you need to address default root window, you can simply use `defaultRootWindow` object, which will give you
-instant access to all root-related features (it is equivalent to: `myRoot = RootWindow()`)
+instant access to all root-related features (it is equivalent to: `myRoot = EwmhRoot()`)
 
-To get a RootWindow object it is necessary to pass the target root id. This can be achieved in several ways:
+To get a EwmhRoot object it is necessary to pass the target root id. This can be achieved in several ways:
 
 - You already have a root, so pass root.id param
 - You have some criteria to select a root, so use the convenience function `getAllDisplaysInfo()`, to look for all roots and select the desired one
@@ -38,7 +40,7 @@ Apart from given methods, you can access these other values to be used with pyth
 
 #### WM Protocols
 
-WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (RootWindow.wmProtocols.Ping/Sync)
+WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (EwmhRoot.wmProtocols.Ping/Sync)
 
 
 ### EwmhWindow: Window queries, changes and messages
@@ -57,9 +59,9 @@ Apart from given methods, there are some values you can use with python-xlib:
 - display: XDisplay connection
 - screen: screen Struct
 - root: root X Window object
-- rootWindow: object to access RootWindow methods
+- rootWindow: object to access EwmhRoot methods
 - xWindow: X Window object associated to current window
-- id: current window's id
+- id: current window id
 
 Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
 available using extensions subclass (EwmhWindow.extensions.*), see below.
@@ -76,9 +78,9 @@ Events loop example:
     import Xlib.protocol
     import Xlib.X
     
-    from ewmhlib import RootWindow, EwmhWindow
+    from ewmhlib import EwmhRoot, EwmhWindow
     
-    root = RootWindow()
+    root = EwmhRoot()
     w = root.getActiveWindow()
     if w:
         win = EwmhWindow(w)
@@ -145,7 +147,7 @@ useful help in order to simplify handling replies, values, atoms and so on.
 
 These values are accessible through `Props` class (ewmhlib.Props.*). 
 They include all properties, atoms and hints values recognized by EWMH specs, so makes it easier 
-to know, enumerate or use them.
+to find, enumerate or use them.
 
 They have been organized in different subclasses, according to their type or when they should be used.
 
