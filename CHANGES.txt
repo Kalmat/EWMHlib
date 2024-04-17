@@ -1,1 +1,2 @@
-0.0.1,  2023/05/22 -- Initial version
+0.2, 2024/04/17 -- Improved getPropertyValue()
+0.1, 2023/05/22 -- Initial version
