@@ -1,5 +1,6 @@
 # EWMH-lib
 [![Type Checking](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml)
+[![PyPI version](https://badge.fury.io/py/ewmhlib.svg)](https://badge.fury.io/py/ewmhlib)
 
 Extended Window Manager Hints implementation in Python 3 and python-xlib, which allows to easily query and control 
 Window Managers following these standards.
@@ -49,7 +50,7 @@ Class to access application window features.
 
 To instantiate this class only a window id is required. It is possible to retrieve this value in several ways:
 
-- Target a specific window using an external module (e.g. `PyWinCtl.getAllWindowsWithTitle(title)`)
+- Target a specific window using an external module (e.g. `pywinctl.getAllWindowsWithTitle(title)` or `pywinctl.getActiveWindow()`)
 - Retrieve it from your own application (e.g. PyQt's `winId()` or TKinter's `frame()`)
 
 Note that, although a root is also a window, most of these methods will not likely work with it.
@@ -173,9 +174,9 @@ or
 
     python3 -m pip install ewmhlib
 
-Alternatively, you can download the wheel file (.whl) available in the [Download page](https://pypi.org/project/EWMHlib/#files) and the [dist folder](https://github.com/Kalmat/EWMHlib/tree/master/dist), and run this (don't forget to replace 'x.x.xx' with proper version number):
+Alternatively, you can download the wheel file (.whl) available in the [Download page](https://pypi.org/project/EWMHlib/#files) and the [dist folder](https://github.com/Kalmat/EWMHlib/tree/master/dist), and run this (don't forget to replace 'x.xx' with proper version number):
 
-    pip install EWMHlib-x.x.xx-py3-none-any.whl
+    pip install EWMHlib-x.xx-py3-none-any.whl
 
 You may want to add `--force-reinstall` option to be sure you are installing the right dependencies version.
 
@@ -250,6 +251,9 @@ An (likely) incomplete list of EWMH-compliant window managers is (via Wikipedia,
 |        xmonad        |     (4)     |
 
 (1) Through 0.65 / from 0.70
+
 (2) As of 4.0.0
+
 (3) Releases following and including version 1.1.0 follow the EWMH standard
+
 (4) Must activate EWMH (XMonad.Hooks.EwmhDesktops)

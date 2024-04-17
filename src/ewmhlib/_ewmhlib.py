@@ -9,7 +9,7 @@ import array
 import os
 import threading
 import time
-from typing import Optional, cast, Callable, Union, List, Tuple, Iterable
+from typing import Optional, cast, Callable, Union, List, Tuple
 
 import Xlib.display
 import Xlib.protocol
@@ -258,28 +258,37 @@ def getPropertyValue(prop: Optional[Xlib.protocol.request.GetProperty], text: bo
     Extract data from retrieved window/root property
 
     :param prop: Xlib.protocol.request.GetProperty struct from which extract data
-    :param text: set to ''True'' to convert the atoms (int) to their names (str)
+    :param text: set to ''True'' to convert the atoms (int) to their names (str), if possible
     :param display: display to which window belongs to (defaults to default display)
     :return: extracted property data (as a list of integers or strings) or None
     """
     if prop and hasattr(prop, "value"):
         # Value is either str, bytes (separated by '\x00' when multiple values) or array.array of integers.
         # The type of array values is stored in array.typecode ('I' in this case).
-        valueData: Union[array.array[int], bytes] = prop.value
-        if isinstance(valueData, str) or isinstance(valueData, int):
+        valueData: Union[str, int, bytes, array.array[int], List[str], List[int]] = prop.value
+        if isinstance(valueData, str):
             return [valueData]
-        if isinstance(valueData, bytes):
+        elif isinstance(valueData, int):
+            result = valueData
+            if text and valueData != 0:
+                try:
+                    result = display.get_atom_name(valueData)
+                except:
+                    pass
+            return [result]
+        elif isinstance(valueData, bytes):
             resultStr: List[str] = [a for a in valueData.decode().split("\x00") if a]
             return resultStr
-        elif isinstance(valueData, array.array):
+        elif isinstance(valueData, array.array) or isinstance(valueData, list):
             if text:
-                resultStr = [display.get_atom_name(a) for a in valueData if isinstance(a, int) and a != 0]
-                return resultStr
-            else:
+                try:
+                    resultStr = [display.get_atom_name(a) for a in valueData if isinstance(a, int) and a != 0]
+                    return resultStr
+                except:
+                    text = False
+            if not text:
                 resultInt: List[int] = [a for a in valueData if isinstance(a, int)]
                 return resultInt
-        # Leaving this to detect if data has an unexpected type
-        return [a for a in valueData] if isinstance(valueData, Iterable) else [valueData]
     return None
 
 
