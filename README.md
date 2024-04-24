@@ -1,6 +1,8 @@
 # EWMH-lib
 [![Type Checking](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml)
 [![PyPI version](https://badge.fury.io/py/ewmhlib.svg)](https://badge.fury.io/py/ewmhlib)
+[![Documentation Status](https://readthedocs.org/projects/ewmhlib/badge/?version=latest)](https://ewmhlib.readthedocs.io/en/latest/?badge=latest)
+
 
 Extended Window Manager Hints implementation in Python 3 and python-xlib, which allows to easily query and control 
 Window Managers following these standards.
@@ -13,7 +15,6 @@ This module has been tested OK in Ubuntu/GNOME, Mint/Cinnamon and Manjaro/KDE. I
 
 **Warning: new Display Server used by GNOME in Ubuntu, Wayland, is not EWMH-compliant, so many features will not work**
 
-
 ### EwmhRoot: Root queries, changes and messages
 
 Class to access root features.
@@ -24,7 +25,7 @@ instant access to all root-related features (it is equivalent to: `myRoot = Ewmh
 To get a EwmhRoot object it is necessary to pass the target root id. This can be achieved in several ways:
 
 - You already have a root, so pass root.id param
-- You have some criteria to select a root, so use the convenience function `getAllDisplaysInfo()`, to look for all roots and select the desired one
+- You have some criteria to select a root, so use the convenience function `getDisplaysInfo()`, to look for all roots and select the desired one
 - You have a target window, so use the convenience function getDisplayFromWindow(window.id), so you will retrieve the associated display connection and root window
 - Instantiate this class with no param (None), so it will retrieve the default display and root
 
@@ -37,7 +38,6 @@ Apart from given methods, you can access these other values to be used with pyth
 - screen: screen Struct
 - root: root X Window object
 - id: root window id
-
 
 #### WM Protocols
 
@@ -67,10 +67,28 @@ Apart from given methods, there are some values you can use with python-xlib:
 Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
 available using extensions subclass (EwmhWindow.extensions.*), see below.
 
-
 #### Extensions: Geometry, Hints, Protocols and Events
 
 Additional, non-EWMH features, related to low-level window properties like geometry, hints, protocols and events.
+
+|                     Extensions                     |
+|:--------------------------------------------------:|
+|       [getWmHints](docstrings.md#getwmhints)       |
+|      [setWmHints](docstrings.md#setwmhints)       |
+| [getWmNormalHints](docstrings.md#getwmnormalhints) |
+| [setWmNormalHints](docstrings.md#setwmnormalhints) |
+|   [getWmProtocols](docstrings.md#getwmprotocols)   |
+|   [addWmProtocols](docstrings.md#addwmprotocols)   |
+|   [delWmProtocols](docstrings.md#delwmprotocols)   |
+|      [CheckEvents](docstrings.md#checkevents)      |
+
+
+|     CheckEvents Methods      |
+|:----------------------------:|
+| [start](docstrings.md#start) |
+| [pause](docstrings.md#pause) |
+|  [stop](docstrings.md#stop)  |
+
 
 Events loop example:
 
@@ -108,11 +126,11 @@ Events loop example:
 As their names suggest, these general variables will give access to the default display, screen
 and root objects, allowing to perform all Xlib-related functions.
 
-|    Objects     |
-|:--------------:|
-| defaultDisplay |
-| defaultScreen  |
-|  defaultRoot   |
+|                    Objects                    |
+|:---------------------------------------------:|
+|                defaultDisplay                 |
+|                 defaultScreen                 |
+|                  defaultRoot                  |
 
 
 ### Display functions
@@ -120,11 +138,11 @@ and root objects, allowing to perform all Xlib-related functions.
 These functions will allow to manage/find proper display and screen, in a multi-display or multi-screen environment
 (not the usual scenario, so the default objects above will be enough in most cases).
  
-|  Display functions   |
-|:--------------------:|
-|    getAllDisplays    |
-|  getDisplayFromRoot  |
-| getDisplayFromWindow |
+|                     Display functions                      |
+|:----------------------------------------------------------:|
+|      [getDisplaysInfo](docstrings.md#getdisplaysinfo)      |
+|   [getDisplayFromRoot](docstrings.md#getdisplayfromroot)   |
+| [getDisplayFromWindow](docstrings.md#getdisplayfromwindow) |
 
 
 ### Properties and Messages functions  
@@ -136,12 +154,12 @@ These are very similar to their Xlib equivalent functions (more complex to use),
 custom, more advanced, perhaps more specific and/or non fully EWMH standard features; but they add some 
 useful help in order to simplify handling replies, values, atoms and so on.
 
-|  Property functions  |
-|:--------------------:|
-|     getProperty      |
-|   getPropertyValue   |
-|    changeProperty    |
-|     sendMessage      |
+|                 Property functions                 |
+|:--------------------------------------------------:|
+|      [getProperty](docstrings.md#getproperty)      |
+| [getPropertyValue](docstrings.md#getpropertyvalue) |
+|   [changeProperty](docstrings.md#changeproperty)   |
+|      [sendMessage](docstrings.md#sendmessage)      |
 
 
 ### Properties, atoms and hints values
@@ -150,21 +168,36 @@ These values are accessible through `Props` class (ewmhlib.Props.*).
 They include all properties, atoms and hints values recognized by EWMH specs, so makes it easier 
 to find, enumerate or use them.
 
-They have been organized in different subclasses, according to their type or when they should be used.
+They have been organized in different subclasses, according to their type or when they should be used:
+
+|         Properties, atoms and hints          |
+|:--------------------------------------------:|
+|          [Root](docstrings.md#root)          |
+| [DesktopLayout](docstrings.md#desktoplayout) |
+|        [Window](docstrings.md#window)        |
+|    [WindowType](docstrings.md#windowtype)    |
+|         [State](docstrings.md#state)         |
+|   [StateAction](docstrings.md#stateaction)   |
+|    [MoveResize](docstrings.md#moveresize)    |
+|    [DataFormat](docstrings.md#dataformat)    |
+|          [Mode](docstrings.md#mode)          |
+|     [StackMode](docstrings.md#stackmode)     |
+|    [HintAction](docstrings.md#hintaction)    |
+
 
 ### Data Structs
 
 Aimed to facilitate understanding and handling complex reply data structures and fields.
 
-| Data Structs  |
-|:-------------:|
-| DisplaysInfo  |
-|  ScreensInfo  |
-|    WmHints    |
-| WmNormalHints |
+|                 Data Structs                 |
+|:--------------------------------------------:|
+|  [DisplaysInfo](docstrings.md#displaysinfo)  |
+|   [ScreensInfo](docstrings.md#screensinfo)   |
+|       [WmHints](docstrings.md#wmhints)       |
+| [WmNormalHints](docstrings.md#wmnormalhints) |
 
 
-## INSTALL <a name="install"></a>
+## Install <a name="install"></a>
 
 To install this module on your system, you can use pip: 
 
@@ -184,11 +217,11 @@ Then, you can use it on your own projects just importing it:
 
     import ewmhlib
 
-## SUPPORT <a name="support"></a>
+## Support <a name="support"></a>
 
 In case you have a problem, comments or suggestions, do not hesitate to [open issues](https://github.com/Kalmat/EWMHlib/issues) on the [project homepage](https://github.com/Kalmat/EWMHlib)
 
-## USING THIS CODE <a name="using"></a>
+## Using this code <a name="using"></a>
 
 If you want to use this code or contribute, you can either:
 
@@ -197,7 +230,7 @@ If you want to use this code or contribute, you can either:
 
 Be sure you install all dependencies described on "docs/requirements.txt" by using pip
 
-## TEST <a name="test"></a>
+## Test <a name="test"></a>
 
 To test this module on your own system, cd to "tests" folder and run:
 
