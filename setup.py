@@ -42,7 +42,8 @@ setup(
         'dev': [
             "types-setuptools>=65.5",
             "mypy>=0.990",
-            "types-python-xlib>=0.32"
+            "types-python-xlib>=0.32",
+            "myst-parser"
         ]
     },
     keywords="ewmh Extended-Window-manager-hints window-manager window manager hints",
