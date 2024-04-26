@@ -15,7 +15,35 @@ This module has been tested OK in Ubuntu/GNOME, Mint/Cinnamon and Manjaro/KDE. I
 
 **Warning: new Display Server used by GNOME in Ubuntu, Wayland, is not EWMH-compliant, so many features will not work**
 
-### EwmhRoot: Root queries, changes and messages
+## General functions and variables
+
+These functions and variables are module-level, so they do not need to previously instantiate any class or object.
+
+### General objects
+
+As their names suggest, these general variables will give access to the default display, screen
+and root objects, allowing to use them in Xlib-related functions.
+
+|                    Objects                    |
+|:---------------------------------------------:|
+|                defaultDisplay                 |
+|                 defaultScreen                 |
+|                  defaultRoot                  |
+
+
+### General functions
+
+These functions will allow to manage/find displays, screens and roots, in a multi-display or multi-screen environment
+(not the usual scenario, so the default objects above will be enough in most cases).
+ 
+|                     Display functions                      |
+|:----------------------------------------------------------:|
+|      [getDisplaysInfo](docstrings.md#getdisplaysinfo)      |
+|   [getDisplayFromRoot](docstrings.md#getdisplayfromroot)   |
+| [getDisplayFromWindow](docstrings.md#getdisplayfromwindow) |
+|             [getRoots](docstrings.md#getroots)             |
+
+## EwmhRoot: Root queries, changes and messages
 
 Class to access root features.
 
@@ -26,25 +54,57 @@ To get a EwmhRoot object it is necessary to pass the target root id. This can be
 
 - You already have a root, so pass root.id param
 - You have some criteria to select a root, so use the convenience function `getDisplaysInfo()`, to look for all roots and select the desired one
-- You have a target window, so use the convenience function getDisplayFromWindow(window.id), so you will retrieve the associated display connection and root window
+- You have a target window, so use the convenience function `getDisplayFromWindow(window.id)`, so you will retrieve the associated display connection and root window
 - Instantiate this class with no param (None), so it will retrieve the default display and root
 
 Note that, even though a regular (application) window has the same type than a root window, 
 these methods will not work with it, so avoid passing it to instantiate this class.
+ 
+|                       EwmhRoot methods                       |
+|:------------------------------------------------------------:|
+|     [getSupportedHints](docstrings.md#getsupportedhints)     |
+|         [getClientList](docstrings.md#getclientlist)         |
+| [getClientListStacking](docstrings.md#getclientliststacking) |
+|   [getNumberOfDesktops](docstrings.md#getnumberofdesktops)   |
+|   [setNumberOfDesktops](docstrings.md#setnumberofdesktops)   |
+|    [getDesktopGeometry](docstrings.md#getdesktopgeometry)    |
+|    [setDesktopGeometry](docstrings.md#setdesktopgeometry)    |
+|    [getDesktopViewport](docstrings.md#getdesktopviewport)    |
+|    [setDesktopViewport](docstrings.md#setdesktopviewport)    |
+|     [getCurrentDesktop](docstrings.md#getcurrentdesktop)     |
+|     [setCurrentDesktop](docstrings.md#setcurrentdesktop)     |
+|       [getDesktopNames](docstrings.md#getdesktopnames)       |
+|       [getActiveWindow](docstrings.md#getactivewindow)       |
+|           [getWorkArea](docstrings.md#getworkarea)           |
+|  [getSupportingWMCheck](docstrings.md#getsupportingwmcheck)  |
+|       [getVirtualRoots](docstrings.md#getvirtualroots)       |
+|      [setDesktopLayout](docstrings.md#setdesktoplayout)      |
+|     [getShowingDesktop](docstrings.md#getshowingdesktop)     |
+|     [setShowingDesktop](docstrings.md#setshowingdesktop)     |
+|             [setClosed](docstrings.md#setclosed)             |
+|         [setMoveResize](docstrings.md#setmoveresize)         |
+|       [setWmMoveResize](docstrings.md#setwmmoveresize)       |
+|         [setWmStacking](docstrings.md#setwmstacking)         |
+|   [requestFrameExtents](docstrings.md#requestframeextents)   |
 
-Apart from given methods, you can access these other values to be used with python-xlib:
 
-- display: XDisplay connection
-- screen: screen Struct
-- root: root X Window object
+WM_PROTOCOLS messages are accessible using wmProtocols subclass (EwmhRoot.wmProtocols.Ping/Sync)
+ 
+| EwmhRoot WMProtocols methods |
+|:----------------------------:|
+|  [ping](docstrings.md#ping)  |
+|  [sync](docstrings.md#sync)  |
+
+
+Apart from given methods, you can access these other variables (EwmhRoot.*) to be used with python-xlib. In most 
+cases these values will match default general variables described above.
+
+- display: XDisplay connection the root belongs to
+- screen: screen Struct the root belongs to
+- root: root as X Window object
 - id: root window id
 
-#### WM Protocols
-
-WM_PROTOCOLS messages (PING/SYNC) are accessible using wmProtocols subclass (EwmhRoot.wmProtocols.Ping/Sync)
-
-
-### EwmhWindow: Window queries, changes and messages
+## EwmhWindow: Window queries, changes and messages
 
 Class to access application window features.
 
@@ -54,27 +114,66 @@ To instantiate this class only a window id is required. It is possible to retrie
 - Retrieve it from your own application (e.g. PyQt's `winId()` or TKinter's `frame()`)
 
 Note that, although a root is also a window, most of these methods will not likely work with it.
+ 
+|                     EwmhRoot methods                     |
+|:--------------------------------------------------------:|
+|             [getName](docstrings.md#getname)             |
+|             [setName](docstrings.md#setname)             |
+|      [getVisibleName](docstrings.md#getvisiblename)      |
+|      [setVisibleName](docstrings.md#setvisiblename)      |
+|         [getIconName](docstrings.md#geticonname)         |
+|         [setIconName](docstrings.md#seticonname)         |
+|  [getVisibleIconName](docstrings.md#getvisibleiconname)  |
+|  [setVisibleIconName](docstrings.md#setvisibleiconname)  |
+|          [getDesktop](docstrings.md#getdesktop)          |
+|          [setDesktop](docstrings.md#setdesktop)          |
+|     [getWmWindowType](docstrings.md#getwmwindowtype)     |
+|     [setWmWindowType](docstrings.md#setwmwindowtype)     |
+|          [getWmState](docstrings.md#getwmstate)          |
+|       [changeWmState](docstrings.md#changewmstate)       |
+|        [setMaximized](docstrings.md#setmaximized)        |
+|        [setMinimized](docstrings.md#setminimized)        |
+|   [getAllowedActions](docstrings.md#getallowedactions)   |
+|            [getStrut](docstrings.md#getstrut)            |
+|            [setStrut](docstrings.md#setstrut)            |
+|     [getStrutPartial](docstrings.md#getstrutpartial)     |
+|     [getIconGeometry](docstrings.md#geticongeometry)     |
+|              [getPid](docstrings.md#getPid)              |
+|     [getHandledIcons](docstrings.md#gethandledicons)     |
+|         [getUserTime](docstrings.md#getUserTime)         |
+|     [getFrameExtents](docstrings.md#getframeextents)     |
+|     [getOpaqueRegion](docstrings.md#getopaqueregion)     |
+| [getBypassCompositor](docstrings.md#getbypasscompositor) |
+|           [setActive](docstrings.md#setactive)           |
+|           [setClosed](docstrings.md#setclosed)           |
+|      [changeStacking](docstrings.md#changestacking)      |
+|       [setMoveResize](docstrings.md#setmoveresize)       |
+|     [setMoveWmResize](docstrings.md#setwmmoveresize)     |
+|       [setWmStacking](docstrings.md#setwmstacking)       |
+| [requestFrameExtents](docstrings.md#requestframeextents) |
+
 
 Apart from given methods, there are some values you can use with python-xlib:
 
-- display: XDisplay connection
-- screen: screen Struct
-- root: root X Window object
-- rootWindow: object to access EwmhRoot methods
+- display: XDisplay connection the window belongs to
+- screen: screen Struct the window belongs to
+- root: root the window belongs to as X Window object
+- rootWindow: object to access EwmhRoot methods corresponding to the root to which the window belongs
 - xWindow: X Window object associated to current window
 - id: current window id
 
 Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
 available using extensions subclass (EwmhWindow.extensions.*), see below.
 
-#### Extensions: Geometry, Hints, Protocols and Events
+### EwmhWindow Extensions: Geometry, Hints, Protocols and Events
 
-Additional, non-EWMH features, related to low-level window properties like geometry, hints, protocols and events.
+Additional, non-EWMH features, related to low-level window properties like geometry, hints, protocols and events. 
+They can be accessed using EwmhWindow.Extensions.*
 
-|                     Extensions                     |
+|                 Extensions methods                 |
 |:--------------------------------------------------:|
 |       [getWmHints](docstrings.md#getwmhints)       |
-|      [setWmHints](docstrings.md#setwmhints)       |
+|       [setWmHints](docstrings.md#setwmhints)       |
 | [getWmNormalHints](docstrings.md#getwmnormalhints) |
 | [setWmNormalHints](docstrings.md#setwmnormalhints) |
 |   [getWmProtocols](docstrings.md#getwmprotocols)   |
@@ -83,11 +182,11 @@ Additional, non-EWMH features, related to low-level window properties like geome
 |      [CheckEvents](docstrings.md#checkevents)      |
 
 
-|     CheckEvents Methods      |
-|:----------------------------:|
-| [start](docstrings.md#start) |
-| [pause](docstrings.md#pause) |
-|  [stop](docstrings.md#stop)  |
+| Extensions.CheckEvents Methods |
+|:------------------------------:|
+|  [start](docstrings.md#start)  |
+|  [pause](docstrings.md#pause)  |
+|   [stop](docstrings.md#stop)   |
 
 
 Events loop example:
@@ -111,7 +210,7 @@ Events loop example:
                                      Xlib.X.StructureNotifyMask | Xlib.X.SubstructureNotifyMask,
                                      callback)
 
-    print("MOVE AND RESIZE ACTIVE WINDOW")
+    print("MANUALLY MOVE AND RESIZE ACTIVE WINDOW")
     print("Press Ctl-C to exit")
     while True:
         try:
@@ -121,38 +220,15 @@ Events loop example:
     win.extensions.checkEvents.stop()
 
 
-### General variables
-
-As their names suggest, these general variables will give access to the default display, screen
-and root objects, allowing to perform all Xlib-related functions.
-
-|                    Objects                    |
-|:---------------------------------------------:|
-|                defaultDisplay                 |
-|                 defaultScreen                 |
-|                  defaultRoot                  |
-
-
-### Display functions
-
-These functions will allow to manage/find proper display and screen, in a multi-display or multi-screen environment
-(not the usual scenario, so the default objects above will be enough in most cases).
- 
-|                     Display functions                      |
-|:----------------------------------------------------------:|
-|      [getDisplaysInfo](docstrings.md#getdisplaysinfo)      |
-|   [getDisplayFromRoot](docstrings.md#getdisplayfromroot)   |
-| [getDisplayFromWindow](docstrings.md#getdisplayfromwindow) |
-
-
-### Properties and Messages functions  
+## Properties and Messages functions  
 
 This set of functions will allow to directly query and control application or root windows, without the
 need of instantiating their corresponding classes described above. 
 
-These are very similar to their Xlib equivalent functions (more complex to use), and therefore will allow 
-custom, more advanced, perhaps more specific and/or non fully EWMH standard features; but they add some 
-useful help in order to simplify handling replies, values, atoms and so on.
+These are very similar to their Xlib equivalent functions (more complex to use than the methods provided by 
+EwmhRoot and EwmhWindow classes), and therefore will allow custom, more advanced, perhaps more specific and/or non 
+fully EWMH standard features; but they add some useful help in order to simplify handling replies, values, atoms and 
+so on.
 
 |                 Property functions                 |
 |:--------------------------------------------------:|
@@ -162,7 +238,7 @@ useful help in order to simplify handling replies, values, atoms and so on.
 |      [sendMessage](docstrings.md#sendmessage)      |
 
 
-### Properties, atoms and hints values
+## Properties, atoms and hints values
 
 These values are accessible through `Props` class (ewmhlib.Props.*). 
 They include all properties, atoms and hints values recognized by EWMH specs, so makes it easier 
@@ -185,7 +261,7 @@ They have been organized in different subclasses, according to their type or whe
 |    [HintAction](docstrings.md#hintaction)    |
 
 
-### Data Structs
+## Data Structs
 
 Aimed to facilitate understanding and handling complex reply data structures and fields.
 
