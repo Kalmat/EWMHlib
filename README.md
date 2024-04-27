@@ -160,14 +160,14 @@ Note that, although a root is also a window, most of these methods will not like
 Apart from given methods, there are some values you can use with python-xlib:
 
  
-| EwmhWindow variables | Description                                    |
-|:--------------------:|:-----------------------------------------------|
-|       display        | XDisplay connection the window belongs to      |
-|        screen        | screen the window belongs to as Struct         |
-|         root         | root the window belongs to as X-Window object  |
-|      rootWindow      | root the window belongs to as EwmhRoot object  |
-|       XWindow        | X-Window object associated to current window   |
-|          id          | root window id                                 |
+| EwmhWindow variables | Description                                   |
+|:--------------------:|:----------------------------------------------|
+|       display        | XDisplay connection the window belongs to     |
+|        screen        | screen the window belongs to as Struct        |
+|         root         | root the window belongs to as X-Window object |
+|      rootWindow      | root the window belongs to as EwmhRoot object |
+|       XWindow        | X-Window object associated to current window  |
+|          id          | window id                                     |
 
 
 ### EwmhWindow Extensions: Geometry, Hints, Protocols and Events
