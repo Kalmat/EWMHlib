@@ -99,10 +99,14 @@ WM_PROTOCOLS messages are accessible using wmProtocols subclass (EwmhRoot.wmProt
 Apart from given methods, you can access these other variables (EwmhRoot.*) to be used with python-xlib. In most 
 cases these values will match default general variables described above.
 
-- display: XDisplay connection the root belongs to
-- screen: screen Struct the root belongs to
-- root: root as X Window object
-- id: root window id
+ 
+| EwmhRoot variables | Description                             |
+|:------------------:|:----------------------------------------|
+|      display       | XDisplay connection the root belongs to |
+|       screen       | screen the root belongs to as Struct    |
+|        root        | root as X-Window object                 |
+|         id         | root window id                          |
+
 
 ## EwmhWindow: Window queries, changes and messages
 
@@ -155,20 +159,21 @@ Note that, although a root is also a window, most of these methods will not like
 
 Apart from given methods, there are some values you can use with python-xlib:
 
-- display: XDisplay connection the window belongs to
-- screen: screen Struct the window belongs to
-- root: root the window belongs to as X Window object
-- rootWindow: object to access EwmhRoot methods corresponding to the root to which the window belongs
-- xWindow: X Window object associated to current window
-- id: current window id
+ 
+| EwmhWindow variables | Description                                    |
+|:--------------------:|:-----------------------------------------------|
+|       display        | XDisplay connection the window belongs to      |
+|        screen        | screen the window belongs to as Struct         |
+|         root         | root the window belongs to as X-Window object  |
+|      rootWindow      | root the window belongs to as EwmhRoot object  |
+|       XWindow        | X-Window object associated to current window   |
+|          id          | root window id                                 |
 
-Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
-available using extensions subclass (EwmhWindow.extensions.*), see below.
 
 ### EwmhWindow Extensions: Geometry, Hints, Protocols and Events
 
-Additional, non-EWMH features, related to low-level window properties like geometry, hints, protocols and events. 
-They can be accessed using EwmhWindow.Extensions.*
+Additional, non-EWMH features, related to low-level window properties like hints, protocols and events are
+available using extensions subclass (EwmhWindow.extensions.*).
 
 |                 Extensions methods                 |
 |:--------------------------------------------------:|
@@ -313,9 +318,9 @@ To test this module on your own system, cd to "tests" folder and run:
     python3 test_ewmhlib.py
  
 
-## List of window managers that support Extended Window Manager Hints
+## List of EWMH-compliant window managers
 
-An (likely) incomplete list of EWMH-compliant window managers is (via Wikipedia, [here](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints) and [here](https://en.wikipedia.org/wiki/Comparison_of_X_window_managers#General_information)):
+A (likely) incomplete list of EWMH-compliant window managers is (via Wikipedia, [here](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints) and [here](https://en.wikipedia.org/wiki/Comparison_of_X_window_managers#General_information)):
 
 |         Name         |  Comments   |
 |:--------------------:|:-----------:|
