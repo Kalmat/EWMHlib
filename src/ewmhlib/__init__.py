@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 from importlib.metadata import version as _importlib_version
 
 __all__ = [
