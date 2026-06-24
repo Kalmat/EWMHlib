@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import sys
-assert sys.platform == "linux"
+
+if sys.platform != "linux":
+    raise OSError(f"Cannot import {__name__} on {sys.platform}")
 
 import array
 import os
@@ -14,14 +16,26 @@ import Xlib.display
 import Xlib.protocol
 import Xlib.X
 import Xlib.Xatom
-import Xlib.Xutil
-import Xlib.ext
 import Xlib.xobject
+import Xlib.Xutil
 from Xlib.xobject.drawable import Window as XWindow
 
-from .Props import (Root, DesktopLayout, Window, WindowType, State, StateAction,
-                           MoveResize, DataFormat, Mode, HintAction)
-from .Structs import DisplaysInfo, ScreensInfo, WmHints, Aspect, WmNormalHints
+from .Props import (
+    DataFormat,
+    DesktopLayout,
+    HintAction,
+    Mode,
+    MoveResize,
+    Root,
+    State,
+    StateAction,
+    Window,
+    WindowType,
+)
+from .Structs import Aspect, DisplaysInfo, ScreensInfo, WmHints, WmNormalHints
+
+if TYPE_CHECKING:
+    from Xlib.protocol.rq import Struct
 
 if TYPE_CHECKING:
     from Xlib.protocol.rq import Struct
@@ -2713,7 +2727,7 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
 #     input_pm: Xlib.xobject.drawable.Pixmap = xWin.create_pixmap(width, height, 1)
 #     gc: Xlib.xobject.fontable.GC = input_pm.create_gc(foreground=0, background=0)
 #     input_pm.fill_rectangle(gc.id, 0, 0, width, height)
-#     xWin.shape_mask(Xlib.ext.shape.SO.Set, Xlib.ext.shape.SK.Input, 0, 0, input_pm)  # type: ignore[attr-defined]  # pyright: ignore[reportGeneralTypeIssues, reportUnknownMemberType]
+#     xWin.shape_mask(Xlib.ext.shape.SO.Set, Xlib.ext.shape.SK.Input, 0, 0, input_pm)
 #     # xWin.shape_select_input(0)
 #
 #     xWin.map()
