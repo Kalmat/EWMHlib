@@ -48,7 +48,7 @@ def _getDisplays() -> list[Xlib.display.Display]:
                 name: str = d.replace("X", ":", 1)
                 try:
                     displays.append(Xlib.display.Display(name))
-                except:
+                except Exception:
                     pass
     if not displays:
         displays = [defaultDisplay]
@@ -94,7 +94,7 @@ def getDisplaysInfo() -> dict[str, DisplaysInfo]:
                     "root": root
                 }
                 screens.append(screenInfo)
-            except:
+            except Exception:
                 pass
         displayInfo: DisplaysInfo = {
             "display": display,
@@ -162,7 +162,7 @@ def _getRoots(updateDisplays: bool = False) -> list[tuple[Xlib.display.Display, 
                     root: XWindow = screen.root
                     if root.id != defaultRoot.id:
                         rootsInfo.append((display, screen, root))
-                except:
+                except Exception:
                     pass
     return rootsInfo
 _roots: list[tuple[Xlib.display.Display, Struct, XWindow]] = _getRoots()
@@ -274,7 +274,7 @@ def getPropertyValue(prop: Xlib.protocol.request.GetProperty | None, text: bool 
             if text and valueData != 0:
                 try:
                     result = display.get_atom_name(valueData)
-                except:
+                except Exception:
                     pass
             return [result]
         elif isinstance(valueData, bytes):
@@ -285,7 +285,7 @@ def getPropertyValue(prop: Xlib.protocol.request.GetProperty | None, text: bool 
                 try:
                     resultStr = [display.get_atom_name(a) for a in valueData if isinstance(a, int) and a != 0]
                     return resultStr
-                except:
+                except Exception:
                     text = False
             if not text:
                 resultInt: list[int] = [a for a in valueData if isinstance(a, int)]
@@ -2648,13 +2648,13 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
         try:
             query = hwnd.query_tree()
             children: list[XWindow] = query.children
-        except:
+        except Exception:
             children = []
         for child in children:
             try:
                 # This returns empty name in some cases... must use getProperty!!!!
                 ret: str | None = child.get_wm_name()
-            except:
+            except Exception:
                 ret = None
             if ret is not None:
                 winTitle: str = ret
@@ -2663,7 +2663,7 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
             winClass: tuple[str, str] | None = None
             try:
                 winClass = child.get_wm_class()
-            except:
+            except Exception:
                 pass
             if winClass is None:
                 winClass = ("", "")
@@ -2785,7 +2785,7 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
 #             libPath: Optional[str] = find_library('X11')
 #             if libPath:
 #                 lib = cdll.LoadLibrary(libPath)
-#         except:
+#         except Exception:
 #             pass
 #         _xlib = lib
 #     return _xlib
@@ -2799,7 +2799,7 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
 #             libPath: Optional[str] = find_library('Xcomposite')
 #             if libPath:
 #                 lib = cdll.LoadLibrary(libPath)
-#         except:
+#         except Exception:
 #             pass
 #         _xcomp = lib
 #     return _xcomp
@@ -2842,7 +2842,7 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
 #             xlib.XGetWindowAttributes(dpy, winId, byref(attr))
 #             xlib.XCloseDisplay(dpy)
 #             res = True
-#         except:
+#         except Exception:
 #             pass
 #     return res, attr
 
