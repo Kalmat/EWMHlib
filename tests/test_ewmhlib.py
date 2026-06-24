@@ -8,7 +8,7 @@ sys.path.insert(0, "../src/")
 from ewmhlib import Props, getDisplaysInfo, EwmhRoot, EwmhWindow
 
 
-def main():
+def main() -> None:
     print("ALL DISPLAYS")
     print(getDisplaysInfo())
 
