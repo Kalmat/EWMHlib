@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+from importlib.metadata import version as _importlib_version
 
 __all__ = [
     "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots",
@@ -12,7 +12,7 @@ __all__ = [
     "Props", "Structs"
 ]
 
-__version__ = "0.2"
+__version__ = _importlib_version("ewmhlib")
 
 
 def version(numberOnly: bool = True):

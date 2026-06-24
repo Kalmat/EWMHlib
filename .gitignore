@@ -6,3 +6,4 @@
 /build/
 /.mypy_cache/
 /src/EWMHlib.egg-info/
+.python-version
