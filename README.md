@@ -1,5 +1,5 @@
 # EWMH-lib
-[![Type Checking](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/type-checking.yml)
+[![CI](https://github.com/Kalmat/EWMHlib/actions/workflows/ci.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/ewmhlib.svg)](https://badge.fury.io/py/ewmhlib)
 [![Documentation Status](https://readthedocs.org/projects/ewmhlib/badge/?version=latest)](https://ewmhlib.readthedocs.io/en/latest/?badge=latest)
 
@@ -280,17 +280,17 @@ Aimed to facilitate understanding and handling complex reply data structures and
 
 ## Install <a name="install"></a>
 
-To install this module on your system, you can use pip: 
+To install this module on your system, you can use pip:
 
-    pip3 install ewmhlib
+    python -m pip install ewmhlib
 
-or
+or using uv:
 
-    python3 -m pip install ewmhlib
+    uv add ewmhlib
 
 Alternatively, you can download the wheel file (.whl) available in the [Download page](https://pypi.org/project/EWMHlib/#files) and the [dist folder](https://github.com/Kalmat/EWMHlib/tree/master/dist), and run this (don't forget to replace 'x.xx' with proper version number):
 
-    pip install EWMHlib-x.xx-py3-none-any.whl
+    python -m pip install EWMHlib-x.xx-py3-none-any.whl
 
 You may want to add `--force-reinstall` option to be sure you are installing the right dependencies version.
 
@@ -309,13 +309,19 @@ If you want to use this code or contribute, you can either:
 * Create a fork of the [repository](https://github.com/Kalmat/EWMHlib), or 
 * [Download the repository](https://github.com/Kalmat/EWMHlib/archive/refs/heads/master.zip), uncompress, and open it on your IDE of choice (e.g. PyCharm)
 
-Be sure you install all dependencies described on "docs/requirements.txt" by using pip
+Be sure you install all dev dependencies by running:
+
+    uv sync
+
+or
+    python -m venv .venv
+    python -m pip install -e . --group=dev
 
 ## Test <a name="test"></a>
 
 To test this module on your own system, cd to "tests" folder and run:
 
-    python3 test_ewmhlib.py
+    uv run test_ewmhlib.py
  
 
 ## List of EWMH-compliant window managers

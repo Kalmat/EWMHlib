@@ -7,16 +7,12 @@ on:
       - master
     paths:
       - ".github/workflows/ci.yml"
-      - "docs/**"
-      - ".readthedocs.yaml"
       - "pyproject.toml"
       - "mypy.ini"
       - "**/*.py"
   pull_request:
     paths:
       - ".github/workflows/ci.yml"
-      - "docs/**"
-      - ".readthedocs.yaml"
       - "pyproject.toml"
       - "mypy.ini"
       - "**/*.py"
@@ -29,13 +25,12 @@ concurrency:
 
 jobs:
   mypy:
-    runs-on: ${{ matrix.os }}
+    # Arm runners are faster (as long as the same wheels are available)
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: &timeout-minutes 5
     strategy:
       # mypy is os and python-version sensitive. Test on all supported combinations
       matrix:
-        # Arm runners are faster (as long as the same wheels are available)
-        os: [windows-11-arm, ubuntu-24.04-arm, macos-latest]
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
     steps:

@@ -14,7 +14,7 @@ name = "EWMHlib"
 version = "0.2"
 description = "Extended Window Manager Hints implementation in Python 3"
 authors = [
-    { name = "Kalmat", email = "palookjones@gmail.com" }
+    { name = "Kalmat", email = "palookjones@gmail.com" },
 ]
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -58,4 +58,6 @@ dev = [
 ]
 
 [tool.uv]
+# This project is Linux-only
+environments = ["sys_platform == 'linux'"]
 exclude-newer = "1 week"

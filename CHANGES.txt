@@ -1,3 +1,4 @@
-0.3, 2026/XX/XX -- Removed dependency on `typing_extensions`
+0.3, 2026/XX/XX -- Replaced bare `except:` clauses with `except Exception:`, preventing accidental suppression of system-exit signals (KeyboardInterrupt, SystemExit) during error handling.
+                   Removed dependency on `typing_extensions`
 0.2, 2024/04/17 -- Improved getPropertyValue()
 0.1, 2023/05/22 -- Initial version
