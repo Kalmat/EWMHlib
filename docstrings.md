@@ -289,7 +289,7 @@ def getSupportedHints(
 Returns the list of supported hints by the Window Manager.
 
 This property MUST be set by the Window Manager to indicate which hints it supports. For example:
-considering _NET_WM_STATE both this atom and all supported states e.g._NET_WM_STATE_MODAL,
+considering _NET_WM_STATE both this atom and all supported states e.g. _NET_WM_STATE_MODAL,
 _NET_WM_STATE_STICKY, would be listed. This assumes that backwards incompatible changes will not be made
 to the hints (without being renamed).
 
@@ -364,7 +364,7 @@ root window.
 
 The Window Manager is free to honor or reject this request. If the request is honored _NET_NUMBER_OF_DESKTOPS
 MUST be set to the new number of desktops, _NET_VIRTUAL_ROOTS MUST be set to store the new number of desktop
-virtual root window IDs and_NET_DESKTOP_VIEWPORT and _NET_WORKAREA must also be changed accordingly.
+virtual root window IDs and _NET_DESKTOP_VIEWPORT and _NET_WORKAREA must also be changed accordingly.
 The _NET_DESKTOP_NAMES property MAY remain unchanged.
 
 If the number of desktops is shrinking and _NET_CURRENT_DESKTOP is out of the new range of available desktops,
@@ -446,7 +446,7 @@ For Window Managers that don't support large desktops, this MUST always be set t
 
 A Pager can request to change the viewport for the current desktop by sending a _NET_DESKTOP_VIEWPORT
 client message to the root window.
-The Window Manager MAY choose to ignore this message, in which case_NET_DESKTOP_VIEWPORT property will
+The Window Manager MAY choose to ignore this message, in which case _NET_DESKTOP_VIEWPORT property will
 remain unchanged.
 
 <a id="ewmhlib._ewmhlib.EwmhRoot.getCurrentDesktop"></a>
@@ -541,7 +541,7 @@ desktop and specify an area that is completely contained within the viewport. Wo
 by desktop applications to place desktop icons appropriately.
 
 The Window Manager SHOULD calculate this space by taking the current page minus space occupied by dock
-and panel windows, as indicated by the _NET_WM_STRUT or_NET_WM_STRUT_PARTIAL properties set on client windows.
+and panel windows, as indicated by the _NET_WM_STRUT or _NET_WM_STRUT_PARTIAL properties set on client windows.
 
 **Returns**:
 
@@ -618,7 +618,7 @@ of desktops in the X direction, the number in the Y direction, and the starting 
 the corner containing the first desktop.
 
 Note: In order to inter-operate with Pagers implementing an earlier draft of this document, Window Managers
-should accept a _NET_DESKTOP_LAYOUT property of length 3 and use_NET_WM_TOPLEFT as the starting corner in
+should accept a _NET_DESKTOP_LAYOUT property of length 3 and use _NET_WM_TOPLEFT as the starting corner in
 this case.
 
 The virtual desktops are arranged in a rectangle with rows rows and columns columns. If rows times columns
@@ -637,7 +637,7 @@ corner looks like this:
 +--+--+--+--+
 | 8| 9|10|11|
 +--+--+--+--+
-With starting_corner_NET_WM_BOTTOMRIGHT, it looks like this:
+With starting_corner _NET_WM_BOTTOMRIGHT, it looks like this:
 
 +--+--+--+--+
 |11|10| 9| 8|
@@ -656,7 +656,7 @@ the _NET_WM_TOPLEFT corner looks like:
 +--+--+--+--+
 | 2| 5| 8|11|
 +--+--+--+--+
-With starting_corner_NET_WM_TOPRIGHT, it looks like:
+With starting_corner _NET_WM_TOPRIGHT, it looks like:
 
 +--+--+--+--+
 | 9| 6| 3| 0|
@@ -891,7 +891,7 @@ A Client whose window has not yet been mapped can request of the Window Manager 
 frame extents it will be given upon mapping. To retrieve such an estimate, the Client MUST send a
 _NET_REQUEST_FRAME_EXTENTS message to the root window. The Window Manager MUST respond by estimating
 the prospective frame extents and setting the window's _NET_FRAME_EXTENTS property accordingly.
-The Client MUST handle the resulting_NET_FRAME_EXTENTS PropertyNotify event. So that the Window Manager
+The Client MUST handle the resulting _NET_FRAME_EXTENTS PropertyNotify event. So that the Window Manager
 has a good basis for estimation, the Client MUST set any window properties it intends to set before
 sending this message. The Client MUST be able to cope with imperfect estimates.
 
@@ -1132,8 +1132,8 @@ Some windows may not have a title, the title may change or even this query may f
 
 If the Window Manager displays a window name other than _NET_WM_NAME the Window Manager MUST set this to
 the title displayed in UTF-8 encoding.
-Rationale: This property is for Window Managers that display a title different from the_NET_WM_NAME or
-WM_NAME of the window (i.e. xterm <1>, xterm <2>, ... is shown, but_NET_WM_NAME / WM_NAME is still xterm
+Rationale: This property is for Window Managers that display a title different from the _NET_WM_NAME or
+WM_NAME of the window (i.e. xterm <1>, xterm <2>, ... is shown, but _NET_WM_NAME / WM_NAME is still xterm
 for each window) thereby allowing Pagers to display the same title as the Window Manager.
 
 **Returns**:
@@ -1289,7 +1289,7 @@ desktop, without the need for proxying root window clicks.
 _NET_WM_WINDOW_TYPE_DOCK indicates a dock or panel feature. Typically a Window Manager would keep such windows
 on top of all other windows.
 
-_NET_WM_WINDOW_TYPE_TOOLBAR and_NET_WM_WINDOW_TYPE_MENU indicate toolbar and pinnable menu windows,
+_NET_WM_WINDOW_TYPE_TOOLBAR and _NET_WM_WINDOW_TYPE_MENU indicate toolbar and pinnable menu windows,
 respectively (i.e. toolbars and menus "torn off" from the main application). Windows of this type may
 set the WM_TRANSIENT_FOR hint indicating the main application window.
 
@@ -1302,7 +1302,7 @@ the main application window.
 _NET_WM_WINDOW_TYPE_SPLASH indicates that the window is a splash screen displayed as an application
 is starting up.
 
-_NET_WM_WINDOW_TYPE_DIALOG indicates that this is a dialog window. If_NET_WM_WINDOW_TYPE is not set,
+_NET_WM_WINDOW_TYPE_DIALOG indicates that this is a dialog window. If _NET_WM_WINDOW_TYPE is not set,
 then windows with WM_TRANSIENT_FOR set MUST be taken as this type.
 
 _NET_WM_WINDOW_TYPE_NORMAL indicates that this is a normal, top-level window. Windows with neither
@@ -1373,11 +1373,11 @@ _NET_WM_STATE_SHADED indicates that the window is shaded.
 
 _NET_WM_STATE_SKIP_TASKBAR indicates that the window should not be included on a taskbar. This hint should
 be requested by the application, i.e. it indicates that the window by nature is never in the taskbar.
-Applications should not set this hint if_NET_WM_WINDOW_TYPE already conveys the exact nature of the window.
+Applications should not set this hint if _NET_WM_WINDOW_TYPE already conveys the exact nature of the window.
 
 _NET_WM_STATE_SKIP_PAGER indicates that the window should not be included on a Pager. This hint should
 be requested by the application, i.e. it indicates that the window by nature is never in the Pager.
-Applications should not set this hint if_NET_WM_WINDOW_TYPE already conveys the exact nature of the window.
+Applications should not set this hint if _NET_WM_WINDOW_TYPE already conveys the exact nature of the window.
 
 _NET_WM_STATE_HIDDEN should be set by the Window Manager to indicate that a window would not be visible
 on the screen if its desktop/viewport were active and its coordinates were within the screen bounds.
@@ -1545,7 +1545,7 @@ def getStrut() -> Optional[List[int]]
 This property is equivalent to a _NET_WM_STRUT_PARTIAL property where all start values are 0 and all
 
 end values are the height or width of the logical screen. _NET_WM_STRUT_PARTIAL was introduced later
-than _NET_WM_STRUT, however, so clients MAY set this property in addition to_NET_WM_STRUT_PARTIAL to
+than _NET_WM_STRUT, however, so clients MAY set this property in addition to _NET_WM_STRUT_PARTIAL to
 ensure backward compatibility with Window Managers supporting older versions of the Specification.
 
 **Returns**:
@@ -1589,7 +1589,7 @@ top_start_x, top_end_x, bottom_start_x, bottom_end_x. All coordinates are root w
 The client MAY change this property at any time, therefore the Window Manager MUST watch for property
 notify events if the Window Manager uses this property to assign special semantics to the window.
 
-If both this property and the _NET_WM_STRUT property are set, the Window Manager MUST ignore the_NET_WM_STRUT
+If both this property and the _NET_WM_STRUT property are set, the Window Manager MUST ignore the _NET_WM_STRUT
 property values and use instead the values for _NET_WM_STRUT_PARTIAL. This will ensure that Clients can safely
 set both properties without giving up the improved semantics of the new property.
 
@@ -1996,7 +1996,7 @@ A Client whose window has not yet been mapped can request of the Window Manager 
 frame extents it will be given upon mapping. To retrieve such an estimate, the Client MUST send a
 _NET_REQUEST_FRAME_EXTENTS message to the root window. The Window Manager MUST respond by estimating
 the prospective frame extents and setting the window's _NET_FRAME_EXTENTS property accordingly.
-The Client MUST handle the resulting_NET_FRAME_EXTENTS PropertyNotify event. So that the Window Manager
+The Client MUST handle the resulting _NET_FRAME_EXTENTS PropertyNotify event. So that the Window Manager
 has a good basis for estimation, the Client MUST set any window properties it intends to set before
 sending this message. The Client MUST be able to cope with imperfect estimates.
 
@@ -2167,32 +2167,34 @@ To allocate an XSizeHints structure, use XAllocSizeHints().
 
 The XSizeHints structure contains:
 
-**Size hints mask bits**
+__Size hints mask bits__
 
-    USPosition (1L << 0) # user specified x, y
-    USSize  (1L << 1) # user specified width, height
-    PPosition (1L << 2) # program specified position
-    PSize  (1L << 3) # program specified size
-    PMinSize (1L << 4) # program specified minimum size
-    PMaxSize (1L << 5) # program specified maximum size
-    PResizeInc (1L << 6) # program specified resize increments
-    PAspect  (1L << 7) # program specified min and max aspect ratios
-    PBaseSize (1L << 8)
-    PWinGravity (1L << 9)
-    PAllHints (PPosition|PSize|PMinSize|PMaxSize|PResizeInc|PAspect)
 
-**Values**
+    USPosition	(1L << 0)	# user specified x, y
+    USSize		(1L << 1)	# user specified width, height
+    PPosition	(1L << 2)	# program specified position
+    PSize		(1L << 3)	# program specified size
+    PMinSize	(1L << 4)	# program specified minimum size
+    PMaxSize	(1L << 5)	# program specified maximum size
+    PResizeInc	(1L << 6)	# program specified resize increments
+    PAspect		(1L << 7)	# program specified min and max aspect ratios
+    PBaseSize	(1L << 8)
+    PWinGravity	(1L << 9)
+    PAllHints	(PPosition|PSize|PMinSize|PMaxSize|PResizeInc|PAspect)
+
+__Values__
+
 
     typedef struct {
-        long flags;  # marks which fields in this structure are defined
-        int x, y;  # Obsolete
-        int width, height; # Obsolete
+        long flags;		# marks which fields in this structure are defined
+        int x, y;		# Obsolete
+        int width, height;	# Obsolete
         int min_width, min_height;
         int max_width, max_height;
         int width_inc, height_inc;
         struct {
-               int x;  # numerator
-               int y;  # denominator
+               int x;		# numerator
+               int y;		# denominator
         } min_aspect, max_aspect;
         int base_width, base_height;
         int win_gravity;
@@ -2475,7 +2477,6 @@ Start a new watchdog using start() again.
 ## Props
 
 #### Root
-
     SUPPORTED = "_NET_SUPPORTED"
     CLIENT_LIST = "_NET_CLIENT_LIST"
     CLIENT_LIST_STACKING = "_NET_CLIENT_LIST_STACKING"
@@ -2501,8 +2502,8 @@ Start a new watchdog using start() again.
     PING = "_NET_WM_PING"
     SYNC = "_NET_WM_SYNC_REQUEST"
 
-#### DesktopLayout
 
+#### DesktopLayout
     ORIENTATION_HORZ = 0
     ORIENTATION_VERT = 1
     TOPLEFT = 0
@@ -2510,8 +2511,8 @@ Start a new watchdog using start() again.
     BOTTOMRIGHT = 2
     BOTTOMLEFT = 3
 
-#### Window
 
+#### Window
     NAME = "_NET_WM_NAME"
     LEGACY_NAME = "WM_NAME"
     VISIBLE_NAME = "_NET_WM_VISIBLE_NAME"
@@ -2540,8 +2541,8 @@ Start a new watchdog using start() again.
     OPAQUE_REGION = "_NET_WM_OPAQUE_REGION"
     BYPASS_COMPOSITOR = "_NET_WM_BYPASS_COMPOSITOR"
 
-#### WindowType
 
+#### WindowType
     DESKTOP = "_NET_WM_WINDOW_TYPE_DESKTOP"
     DOCK = "_NET_WM_WINDOW_TYPE_DOCK"
     TOOLBAR = "_NET_WM_WINDOW_TYPE_TOOLBAR"
@@ -2551,8 +2552,8 @@ Start a new watchdog using start() again.
     DIALOG = "_NET_WM_WINDOW_TYPE_DIALOG"
     NORMAL = "_NET_WM_WINDOW_TYPE_NORMAL"
 
-#### State
 
+#### State
     NULL = "0"
     MODAL = "_NET_WM_STATE_MODAL"
     STICKY = "_NET_WM_STATE_STICKY"
@@ -2568,14 +2569,14 @@ Start a new watchdog using start() again.
     DEMANDS_ATTENTION = "_NET_WM_STATE_DEMANDS_ATTENTION"
     FOCUSED = "_NET_WM_STATE_FOCUSED"
 
-#### StateAction
 
+#### StateAction
     REMOVE = 0
     ADD = 1
     TOGGLE = 2
 
-#### MoveResize
 
+#### MoveResize
     SIZE_TOPLEFT = 0
     SIZE_TOP = 1
     SIZE_TOPRIGHT = 2
@@ -2588,27 +2589,28 @@ Start a new watchdog using start() again.
     SIZE_KEYBOARD = 9  # size via keyboard
     MOVE_KEYBOARD = 10  # move via keyboard
 
-#### DataFormat
 
+#### DataFormat
     # I guess 16 is not used in Python (no difference between short and long int)
     STR = 8
     INT = 32
 
-#### Mode
 
+#### Mode
     REPLACE = Xlib.X.PropModeReplace
     APPEND = Xlib.X.PropModeAppend
     PREPEND = Xlib.X.PropModePrepend
 
-#### StackMode
 
+#### StackMode
     ABOVE = Xlib.X.Above
     BELOW = Xlib.X.Below
 
-#### HintAction
 
+#### HintAction
     KEEP = -1
     REMOVE = -2
+
 
 <a id="ewmhlib.Structs._structs"></a>
 
@@ -2656,7 +2658,6 @@ Container class to handle WmHints struct:
 **Example**:
 
   {
-
 - `'flags'` - 103,
 - `'input'` - 1,
 - `'initial_state'` - 1,
@@ -2691,7 +2692,6 @@ Container class to handle WmNormalHints
 **Example**:
 
   {
-
 - `'flags'` - 848,
 - `'min_width'` - 387,
 - `'min_height'` - 145,
