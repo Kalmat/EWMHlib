@@ -10,7 +10,7 @@ import array
 import os
 import threading
 import time
-from typing import TYPE_CHECKING, Callable, cast
+from typing import cast, Callable, TYPE_CHECKING
 
 import Xlib.display
 import Xlib.protocol
@@ -33,6 +33,9 @@ from .Props import (
     WindowType,
 )
 from .Structs import Aspect, DisplaysInfo, ScreensInfo, WmHints, WmNormalHints
+
+if TYPE_CHECKING:
+    from Xlib.protocol.rq import Struct
 
 if TYPE_CHECKING:
     from Xlib.protocol.rq import Struct
