@@ -66,7 +66,7 @@ jobs:
       - name: Install Linux Packages
         run: |
           sudo apt update
-          sudo apt install xvfb x11-xserver-utils openbox dbus-x11
+          sudo apt install xvfb openbox
       - uses: astral-sh/setup-uv@v8.2.0
         with:
           python-version: ${{ matrix.python-version }}
@@ -74,7 +74,7 @@ jobs:
       - run: uv sync --locked
       - name: Run tests
         working-directory: tests
-        run: xvfb-run --server-args="-screen 0 1280x1024x24" bash -c "openbox & sleep 1 && dbus-launch --exit-with-session python test_ewmhlib.py"
+        run: xvfb-run --server-args="-screen 0 1280x1024x24" bash -c "openbox & sleep 1 && python test_ewmhlib.py"
 
   sphinx:
     runs-on: ubuntu-24.04-arm # Keep in sync with build.os in .readthedocs.yaml
