@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-#from typing import List
 
-from typing_extensions import TypedDict
-from typing import List
+from typing import List, TypedDict
 
 from ctypes import Structure, c_int32, c_ulong, c_uint32
 import Xlib.xobject
