@@ -7,16 +7,12 @@ on:
       - master
     paths:
       - ".github/workflows/ci.yml"
-      - "docs/**"
-      - ".readthedocs.yaml"
       - "pyproject.toml"
       - "mypy.ini"
       - "**/*.py"
   pull_request:
     paths:
       - ".github/workflows/ci.yml"
-      - "docs/**"
-      - ".readthedocs.yaml"
       - "pyproject.toml"
       - "mypy.ini"
       - "**/*.py"
