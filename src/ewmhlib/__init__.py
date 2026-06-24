@@ -1,8 +1,16 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 from importlib.metadata import version as _importlib_version
 
-__all__ = [
+from ._main import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
+                    defaultDisplay, defaultScreen, defaultRoot, defaultEwmhRoot,
+                    getDisplayFromRoot, getScreenFromRoot,
+                    getDisplayFromWindow, getScreenFromWindow, getRootFromWindow,
+                    getProperty, getPropertyValue, changeProperty, sendMessage,
+                    EwmhRoot, EwmhWindow,
+                    Props, Structs
+                    )
+
+__all__ = [  # noqa: RUF022
     "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots",
     "defaultDisplay", "defaultScreen", "defaultRoot", "defaultEwmhRoot",
     "getDisplayFromRoot", "getScreenFromRoot",
@@ -15,16 +23,7 @@ __all__ = [
 __version__ = _importlib_version("ewmhlib")
 
 
-def version(numberOnly: bool = True):
+def version(numberOnly: bool = True) -> str:
     """Returns the current version of ewmhlib module, in the form ''x.x.xx'' as string"""
     return ("" if numberOnly else "EWMHlib-")+__version__
 
-
-from ._main import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
-                    defaultDisplay, defaultScreen, defaultRoot, defaultEwmhRoot,
-                    getDisplayFromRoot, getScreenFromRoot,
-                    getDisplayFromWindow, getScreenFromWindow, getRootFromWindow,
-                    getProperty, getPropertyValue, changeProperty, sendMessage,
-                    EwmhRoot, EwmhWindow,
-                    Props, Structs
-                    )
