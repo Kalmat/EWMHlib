@@ -1,12 +1,14 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-#from typing import List
 
-from typing import List, TypedDict
+from __future__ import annotations
+from typing import TYPE_CHECKING, TypedDict
 
 from ctypes import Structure, c_int32, c_ulong, c_uint32
-import Xlib.xobject
-from Xlib.protocol.rq import Struct
-from Xlib.xobject.drawable import Window as XWindow
+
+if TYPE_CHECKING:
+    from Xlib.xobject.drawable import Window as XWindow
+    import Xlib.xobject
+    from Xlib.protocol.rq import Struct
 
 
 class ScreensInfo(TypedDict):
@@ -35,7 +37,7 @@ class DisplaysInfo(TypedDict):
     display: Xlib.display.Display
     name: str
     is_default: bool
-    screens: List[ScreensInfo]
+    screens: list[ScreensInfo]
 
 
 """

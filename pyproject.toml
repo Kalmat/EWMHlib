@@ -53,6 +53,7 @@ docs = [
 ]
 dev = [
     { include-group = "docs" },
+    "ruff>=0.15.16",
     "mypy>=0.990,<2",
     "types-python-xlib>=0.32",
 ]

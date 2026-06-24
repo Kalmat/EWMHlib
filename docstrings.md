@@ -714,8 +714,8 @@ def setClosed(winId: int, userAction: bool = True)
 
 Close target window
 
-The Window Manager MUST then attempt to close the window specified. See the section called Â“Source indication
-in requestsÂ” for details on the source indication.
+The Window Manager MUST then attempt to close the window specified. See the section called “Source indication
+in requests” for details on the source indication.
 
 Rationale: A Window Manager might be more clever than the usual method (send WM_DELETE message if the protocol
 is selected, XKillClient otherwise). It might introduce a timeout, for example. Instead of duplicating the
@@ -750,8 +750,8 @@ A gravity of 0 indicates that the Window Manager should use the gravity specifie
 
 The bits 8 to 11 indicate the presence of x, y, width and height.
 
-The bits 12 to 15 indicate the source (see the section called Â“Source indication
-in requestsÂ”), so 0001 indicates the application and 0010 indicates a Pager or a Taskbar.
+The bits 12 to 15 indicate the source (see the section called “Source indication
+in requests”), so 0001 indicates the application and 0010 indicates a Pager or a Taskbar.
 
 The remaining bits should be set to zero.
 
@@ -791,8 +791,8 @@ def setWmMoveResize(winId: int,
 This message allows Clients to initiate window movement or resizing. They can define their own move and size
 
 "grips", whilst letting the Window Manager control the actual operation. This means that all moves/resizes
-can happen in a consistent manner as defined by the Window Manager. See the section called Â“Source indication
-in requestsÂ” for details on the source indication.
+can happen in a consistent manner as defined by the Window Manager. See the section called “Source indication
+in requests” for details on the source indication.
 
 When sending this message in response to a button press event, button SHOULD indicate the button which
 was pressed, x_root and y_root MUST indicate the position of the button press with respect to the root window
@@ -830,7 +830,7 @@ def setWmStacking(winId: int,
 This request is similar to ConfigureRequest with CWSibling and CWStackMode flags. It should be used only by
 
 pagers, applications can use normal ConfigureRequests. The source indication field should be therefore
-set to 2, see the section called Â“Source indication in requestsÂ” for details.
+set to 2, see the section called “Source indication in requests” for details.
 
 To obtain good interoperability between different Desktop Environments, the following layered stacking
 order is recommended, from the bottom:
@@ -1394,14 +1394,14 @@ decorations. Additionally, the Window Manager is responsible for restoring the o
 a switch from fullscreen back to normal window. For example, a presentation program would use this hint.
 
 _NET_WM_STATE_ABOVE indicates that the window should be on top of most windows (see the section called
-Â“Stacking orderÂ” for details).
+“Stacking order” for details).
 
 _NET_WM_STATE_BELOW indicates that the window should be below most windows (see the section called
-Â“Stacking orderÂ” for details).
+“Stacking order” for details).
 
 _NET_WM_STATE_ABOVE and _NET_WM_STATE_BELOW are mainly meant for user preferences and should not be
 used by applications e.g. for drawing attention to their dialogs (the Urgency hint should be used in
-that case, see the section called Â“UrgencyÂ”).'
+that case, see the section called “Urgency”).'
 
 _NET_WM_STATE_DEMANDS_ATTENTION indicates that some action in or with the window happened. For example,
 it may be set by the Window Manager if the window requested activation but the Window Manager refused it,
@@ -1434,7 +1434,7 @@ See setWmState() documentation for more information on Window States.
 
 This message allows two properties to be changed simultaneously, specifically to allow both horizontal
 and vertical maximization to be altered together. l[2] MUST be set to zero if only one property is to
-be changed. See the section called Â“Source indication in requestsÂ” for details on the source indication.
+be changed. See the section called “Source indication in requests” for details on the source indication.
 l[0], the action, MUST be one of:
 
 _NET_WM_STATE_REMOVE        0    # remove/unset property
@@ -1656,8 +1656,8 @@ If set, this property MUST contain the process ID of the client owning this wind
 the Window Manager to kill windows which do not respond to the _NET_WM_PING protocol.
 
 If _NET_WM_PID is set, the ICCCM-specified property WM_CLIENT_MACHINE MUST also be set. While the ICCCM
-only requests that WM_CLIENT_MACHINE is set Â“ to a string that forms the name of the machine running the
-client as seen from the machine running the serverÂ” conformance to this specification requires that
+only requests that WM_CLIENT_MACHINE is set “ to a string that forms the name of the machine running the
+client as seen from the machine running the server” conformance to this specification requires that
 WM_CLIENT_MACHINE be set to the fully-qualified domain name of the client's host.
 
 **Returns**:
@@ -1789,8 +1789,8 @@ def setActive(userAction: bool = True)
 Set current window as active (focused).
 
 Source indication should be 1 when the request comes from an application, and 2 when it comes from a pager.
-Clients using older version of this spec use 0 as source indication, see the section called Â“Source indication
-in requestsÂ” for details. The timestamp is Client's last user activity timestamp (see _NET_WM_USER_TIME) at
+Clients using older version of this spec use 0 as source indication, see the section called “Source indication
+in requests” for details. The timestamp is Client's last user activity timestamp (see _NET_WM_USER_TIME) at
 the time of the request, and the currently active window is the Client's active toplevel window, if any
 (the Window Manager may be e.g. more likely to obey the request if it will mean transferring focus from one
 active window to another).
@@ -1812,8 +1812,8 @@ def setClosed(userAction: bool = True)
 
 Request to close current window.
 
-The Window Manager MUST then attempt to close the window specified. See the section called Â“Source
-indication in requestsÂ” for details on the source indication.
+The Window Manager MUST then attempt to close the window specified. See the section called “Source
+indication in requests” for details on the source indication.
 
 Rationale: A Window Manager might be more clever than the usual method (send WM_DELETE message if the
 protocol is selected, XKillClient otherwise). It might introduce a timeout, for example. Instead of
@@ -1896,8 +1896,8 @@ A gravity of 0 indicates that the Window Manager should use the gravity specifie
 
 The bits 8 to 11 indicate the presence of x, y, width and height.
 
-The bits 12 to 15 indicate the source (see the section called Â“Source indication
-in requestsÂ”), so 0001 indicates the application and 0010 indicates a Pager or a Taskbar.
+The bits 12 to 15 indicate the source (see the section called “Source indication
+in requests”), so 0001 indicates the application and 0010 indicates a Pager or a Taskbar.
 
 The remaining bits should be set to zero.
 
@@ -1935,8 +1935,8 @@ def setWmMoveResize(x_root: int,
 This message allows Clients to initiate window movement or resizing. They can define their own move and size
 
 "grips", whilst letting the Window Manager control the actual operation. This means that all moves/resizes
-can happen in a consistent manner as defined by the Window Manager. See the section called Â“Source indication
-in requestsÂ” for details on the source indication.
+can happen in a consistent manner as defined by the Window Manager. See the section called “Source indication
+in requests” for details on the source indication.
 
 When sending this message in response to a button press event, button SHOULD indicate the button which
 was pressed, x_root and y_root MUST indicate the position of the button press with respect to the root window
@@ -1970,7 +1970,7 @@ def setWmStacking(siblingId: int, detail: int, userAction: bool = True)
 This request is similar to ConfigureRequest with CWSibling and CWStackMode flags. It should be used only by
 
 pagers, applications can use normal ConfigureRequests. The source indication field should be therefore
-set to 2, see the section called Â“Source indication in requestsÂ” for details.
+set to 2, see the section called “Source indication in requests” for details.
 
 Rationale: A Window Manager may put restrictions on configure requests from applications, for example it may
 under some conditions refuse to raise a window. This request makes it clear it comes from a pager or similar
