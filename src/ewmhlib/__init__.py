@@ -10,7 +10,7 @@ from ._main import (displaysCount, getDisplays, getDisplaysInfo, getRoots,
                     Props, Structs
                     )
 
-__all__ = [  # noqa: RUF022
+__all__ = [
     "version", "displaysCount", "getDisplays", "getDisplaysInfo", "getRoots",
     "defaultDisplay", "defaultScreen", "defaultRoot", "defaultEwmhRoot",
     "getDisplayFromRoot", "getScreenFromRoot",
