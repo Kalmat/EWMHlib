@@ -196,7 +196,6 @@ version = "0.2"
 source = { editable = "." }
 dependencies = [
     { name = "python-xlib", marker = "sys_platform == 'linux'" },
-    { name = "typing-extensions" },
 ]
 
 [package.dev-dependencies]
@@ -217,10 +216,7 @@ docs = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "python-xlib", marker = "sys_platform == 'linux'", specifier = ">=0.21" },
-    { name = "typing-extensions", specifier = ">=4.4.0" },
-]
+requires-dist = [{ name = "python-xlib", marker = "sys_platform == 'linux'", specifier = ">=0.21" }]
 
 [package.metadata.requires-dev]
 dev = [
