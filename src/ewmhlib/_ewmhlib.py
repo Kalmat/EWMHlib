@@ -2724,7 +2724,7 @@ def _xlibGetAllWindows(parent: XWindow | None = None, title: str = "", klass: tu
 #     input_pm: Xlib.xobject.drawable.Pixmap = xWin.create_pixmap(width, height, 1)
 #     gc: Xlib.xobject.fontable.GC = input_pm.create_gc(foreground=0, background=0)
 #     input_pm.fill_rectangle(gc.id, 0, 0, width, height)
-#     xWin.shape_mask(Xlib.ext.shape.SO.Set, Xlib.ext.shape.SK.Input, 0, 0, input_pm)  # type: ignore[attr-defined]  # pyright: ignore[reportGeneralTypeIssues, reportUnknownMemberType]
+#     xWin.shape_mask(Xlib.ext.shape.SO.Set, Xlib.ext.shape.SK.Input, 0, 0, input_pm)
 #     # xWin.shape_select_input(0)
 #
 #     xWin.map()
