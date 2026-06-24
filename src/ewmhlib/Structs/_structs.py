@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
 from __future__ import annotations
-from typing_extensions import TypedDict
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypedDict
 
 from ctypes import Structure, c_int32, c_ulong, c_uint32
 

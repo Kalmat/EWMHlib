@@ -45,7 +45,6 @@ classifiers = [
 ]
 dependencies = [
     "python-xlib>=0.21; sys_platform == 'linux'",
-    "typing_extensions>=4.4.0",
 ]
 
 [dependency-groups]
