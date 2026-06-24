@@ -60,8 +60,3 @@ dev = [
 
 [tool.uv]
 exclude-newer = "1 week"
-[tool.uv.exclude-newer-package]
-# Kalmat owns these packages
-ewmhlib = false
-pymonctl = false
-pywinbox = false
