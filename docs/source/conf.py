@@ -48,6 +48,6 @@ urlretrieve(
     "index.md"
 )
 urlretrieve(
-    "https://raw.githubusercontent.com/kalmat/ewmhlib/master/docstrings.md",
+    "https://raw.githubusercontent.com/kalmat/ewmhlib/master/docs/docstrings.md",
     "docstrings.md"
 )
