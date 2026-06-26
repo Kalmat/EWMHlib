@@ -9,12 +9,12 @@
 import re
 import time
 
-project = 'PyWinCtl'
+project = 'EWMHlib'
 year = time.strftime("%Y")
 author = 'Kalmat'
 copyright = year + ", " + author
 release = "latest"
-with open("../../src/pywinctl/__init__.py", "r") as fileObj:
+with open("../../src/ewmhlib/__init__.py", "r") as fileObj:
     match = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fileObj.read(), re.MULTILINE
     )
@@ -46,13 +46,13 @@ from urllib.request import urlretrieve
 import os
 
 urlretrieve(
-    "https://raw.githubusercontent.com/kalmat/pywinctl/master/README.md",
+    "https://raw.githubusercontent.com/kalmat/ewmhlib/master/README.md",
     "index.md"
 )
 os.mkdir("docs")
 os.chdir("docs")
 urlretrieve(
-    "https://raw.githubusercontent.com/kalmat/pywinctl/master/docs/docstrings.md",
+    "https://raw.githubusercontent.com/kalmat/ewmhlib/master/docs/docstrings.md",
     "docstrings.md"
 )
 os.chdir("..")
