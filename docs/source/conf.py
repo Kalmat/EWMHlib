@@ -8,7 +8,6 @@
 
 import re
 import time
-from urllib.request import urlretrieve
 
 project = 'EWMHlib'
 year = time.strftime("%Y")
@@ -43,18 +42,11 @@ myst_heading_anchors = 7
 
 # -- Copy the modules documentation ------------------------------------------
 # https://stackoverflow.com/questions/66495200/is-it-possible-to-include-external-rst-files-in-my-documentation
-from urllib.request import urlretrieve
-import os
-
 urlretrieve(
     "https://raw.githubusercontent.com/kalmat/ewmhlib/master/README.md",
     "index.md"
 )
-
-os.mkdir("docs")
-os.chdir("docs")
 urlretrieve(
     "https://raw.githubusercontent.com/kalmat/ewmhlib/master/docs/docstrings.md",
     "docstrings.md"
 )
-os.chdir("..")
