@@ -143,10 +143,10 @@ Useful for multi-display or multi-screen setups. In most single-display scenario
 
 | Function | Description |
 |----------|-------------|
-| [getDisplaysInfo()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdisplaysinfo) | Get info on all present displays, including screens and roots |
-| [getDisplayFromRoot()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdisplayfromroot) | Get display connection, screen and root from a root id |
-| [getDisplayFromWindow()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdisplayfromwindow) | Get display connection, screen and root from a window id |
-| [getRoots()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getroots) | Get all root window objects |
+| [getDisplaysInfo()](docs/docstrings.md#getdisplaysinfo) | Get info on all present displays, including screens and roots |
+| [getDisplayFromRoot()](docs/docstrings.md#getdisplayfromroot) | Get display connection, screen and root from a root id |
+| [getDisplayFromWindow()](docs/docstrings.md#getdisplayfromwindow) | Get display connection, screen and root from a window id |
+| [getRoots()](docs/docstrings.md#getroots) | Get all root window objects |
 
 ---
 
@@ -169,37 +169,37 @@ Note: although a regular window and a root window share the same type, `EwmhRoot
 
 | Method | Description |
 |--------|-------------|
-| [getSupportedHints()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getsupportedhints) | List hints supported by the Window Manager |
-| [getClientList()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getclientlist) | List managed windows in mapping order (oldest first) |
-| [getClientListStacking()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getclientliststacking) | List managed windows in stacking order (bottom to top) |
-| [getNumberOfDesktops()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getnumberofdesktops) | Get the number of virtual desktops |
-| [setNumberOfDesktops()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setnumberofdesktops) | Request a change in the number of virtual desktops |
-| [getDesktopGeometry()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdesktopgeometry) | Get the common size of all desktops |
-| [setDesktopGeometry()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setdesktopgeometry) | Request a change in the desktop geometry |
-| [getDesktopViewport()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdesktopviewport) | Get the top-left corner of each desktop's viewport |
-| [setDesktopViewport()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setdesktopviewport) | Request a change in the current desktop viewport |
-| [getCurrentDesktop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getcurrentdesktop) | Get the index of the current desktop |
-| [setCurrentDesktop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setcurrentdesktop) | Switch to a different virtual desktop |
-| [getDesktopNames()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdesktopnames) | Get the names of all virtual desktops |
-| [getActiveWindow()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getactivewindow) | Get the id of the currently active (focused) window |
-| [getWorkArea()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getworkarea) | Get the work area geometry for each desktop |
-| [getSupportingWMCheck()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getsupportingwmcheck) | Check whether a compliant Window Manager is active |
-| [getVirtualRoots()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getvirtualroots) | Get the list of virtual root window ids |
-| [setDesktopLayout()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setdesktoplayout) | Set the pager's virtual desktop layout |
-| [getShowingDesktop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getshowingdesktop) | Check whether "show desktop" mode is active |
-| [setShowingDesktop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setshowingdesktop) | Enter or exit "show desktop" mode |
-| [setClosed()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setclosed) | Request the Window Manager to close a window |
-| [setMoveResize()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setmoveresize) | Move and/or resize a window |
-| [setWmMoveResize()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmmoveresize) | Initiate interactive move/resize controlled by the WM |
-| [setWmStacking()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmstacking) | Restack a window relative to a sibling (pager use) |
-| [requestFrameExtents()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#requestframeextents) | Ask the WM to estimate frame extents before mapping |
+| [getSupportedHints()](docs/docstrings.md#getsupportedhints) | List hints supported by the Window Manager |
+| [getClientList()](docs/docstrings.md#getclientlist) | List managed windows in mapping order (oldest first) |
+| [getClientListStacking()](docs/docstrings.md#getclientliststacking) | List managed windows in stacking order (bottom to top) |
+| [getNumberOfDesktops()](docs/docstrings.md#getnumberofdesktops) | Get the number of virtual desktops |
+| [setNumberOfDesktops()](docs/docstrings.md#setnumberofdesktops) | Request a change in the number of virtual desktops |
+| [getDesktopGeometry()](docs/docstrings.md#getdesktopgeometry) | Get the common size of all desktops |
+| [setDesktopGeometry()](docs/docstrings.md#setdesktopgeometry) | Request a change in the desktop geometry |
+| [getDesktopViewport()](docs/docstrings.md#getdesktopviewport) | Get the top-left corner of each desktop's viewport |
+| [setDesktopViewport()](docs/docstrings.md#setdesktopviewport) | Request a change in the current desktop viewport |
+| [getCurrentDesktop()](docs/docstrings.md#getcurrentdesktop) | Get the index of the current desktop |
+| [setCurrentDesktop()](docs/docstrings.md#setcurrentdesktop) | Switch to a different virtual desktop |
+| [getDesktopNames()](docs/docstrings.md#getdesktopnames) | Get the names of all virtual desktops |
+| [getActiveWindow()](docs/docstrings.md#getactivewindow) | Get the id of the currently active (focused) window |
+| [getWorkArea()](docs/docstrings.md#getworkarea) | Get the work area geometry for each desktop |
+| [getSupportingWMCheck()](docs/docstrings.md#getsupportingwmcheck) | Check whether a compliant Window Manager is active |
+| [getVirtualRoots()](docs/docstrings.md#getvirtualroots) | Get the list of virtual root window ids |
+| [setDesktopLayout()](docs/docstrings.md#setdesktoplayout) | Set the pager's virtual desktop layout |
+| [getShowingDesktop()](docs/docstrings.md#getshowingdesktop) | Check whether "show desktop" mode is active |
+| [setShowingDesktop()](docs/docstrings.md#setshowingdesktop) | Enter or exit "show desktop" mode |
+| [setClosed()](docs/docstrings.md#setclosed) | Request the Window Manager to close a window |
+| [setMoveResize()](docs/docstrings.md#setmoveresize) | Move and/or resize a window |
+| [setWmMoveResize()](docs/docstrings.md#setwmmoveresize) | Initiate interactive move/resize controlled by the WM |
+| [setWmStacking()](docs/docstrings.md#setwmstacking) | Restack a window relative to a sibling (pager use) |
+| [requestFrameExtents()](docs/docstrings.md#requestframeextents) | Ask the WM to estimate frame extents before mapping |
 
 WM_PROTOCOLS messages (PING/SYNC) are available via the `wmProtocols` subclass (`EwmhRoot.wmProtocols.*`):
 
 | Method | Description |
 |--------|-------------|
-| [ping()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#ping) | Send a WM_PING to check if a client is still responsive |
-| [sync()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#sync) | Synchronize WM frame repaints with the client window |
+| [ping()](docs/docstrings.md#ping) | Send a WM_PING to check if a client is still responsive |
+| [sync()](docs/docstrings.md#sync) | Synchronize WM frame repaints with the client window |
 
 ### EwmhRoot variables
 
@@ -229,40 +229,40 @@ Note: although a root is also a window, most of these methods will not work with
 
 | Method | Description |
 |--------|-------------|
-| [getName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getname) | Get the window title (_NET_WM_NAME) |
-| [setName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setname) | Set the window title |
-| [getVisibleName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getvisiblename) | Get the visible name shown by the WM (may differ from getName) |
-| [setVisibleName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setvisiblename) | Set the visible name |
-| [getIconName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#geticonname) | Get the window icon name |
-| [setIconName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#seticonname) | Set the window icon name |
-| [getVisibleIconName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getvisibleiconname) | Get the visible icon name shown by the WM |
-| [setVisibleIconName()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setvisibleiconname) | Set the visible icon name |
-| [getDesktop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getdesktop) | Get the desktop index this window is on (0xFFFFFFFF = all desktops) |
-| [setDesktop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setdesktop) | Move the window to a specific desktop |
-| [getWmWindowType()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getwmwindowtype) | Get the functional window type (NORMAL, DIALOG, DOCK, etc.) |
-| [setWmWindowType()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmwindowtype) | Change the window type |
-| [getWmState()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getwmstate) | Get the list of current window states |
-| [changeWmState()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#changewmstate) | Add, remove or toggle a window state |
-| [setMaximized()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setmaximized) | Set or unset horizontal/vertical maximized states |
-| [setMinimized()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setminimized) | Iconify (minimize) the window |
-| [getAllowedActions()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getallowedactions) | Get the list of user actions currently allowed on this window |
-| [getStrut()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getstrut) | Get reserved screen-border space (legacy, see getStrutPartial) |
-| [setStrut()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setstrut) | Set reserved screen-border space |
-| [getStrutPartial()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getstrutpartial) | Get detailed reserved space at each screen border |
-| [getIconGeometry()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#geticongeometry) | Get the geometry of the window's taskbar icon |
-| [getPid()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getpid) | Get the process id (PID) of the window's owner |
-| [getHandledIcons()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#gethandledicons) | Check whether the pager is handling icons for this window |
-| [getUserTime()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getusertime) | Get the timestamp of last user activity in this window |
-| [getFrameExtents()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getframeextents) | Get the WM frame extents (left, right, top, bottom) |
-| [getOpaqueRegion()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getopaqueregion) | Get the fully-opaque rectangles within the window |
-| [getBypassCompositor()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getbypasscompositor) | Check whether the compositor should be bypassed |
-| [setActive()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setactive) | Activate (focus) this window |
-| [setClosed()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setclosed-1) | Request the WM to close this window |
-| [changeStacking()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#changestacking) | Change this window's stacking position relative to siblings |
-| [setMoveResize()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setmoveresize-1) | Move and/or resize this window |
-| [setWmMoveResize()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmmoveresize-1) | Initiate interactive move/resize via the WM |
-| [setWmStacking()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmstacking-1) | Restack this window (pager use) |
-| [requestFrameExtents()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#requestframeextents-1) | Ask WM to estimate frame extents before this window is mapped |
+| [getName()](docs/docstrings.md#getname) | Get the window title (_NET_WM_NAME) |
+| [setName()](docs/docstrings.md#setname) | Set the window title |
+| [getVisibleName()](docs/docstrings.md#getvisiblename) | Get the visible name shown by the WM (may differ from getName) |
+| [setVisibleName()](docs/docstrings.md#setvisiblename) | Set the visible name |
+| [getIconName()](docs/docstrings.md#geticonname) | Get the window icon name |
+| [setIconName()](docs/docstrings.md#seticonname) | Set the window icon name |
+| [getVisibleIconName()](docs/docstrings.md#getvisibleiconname) | Get the visible icon name shown by the WM |
+| [setVisibleIconName()](docs/docstrings.md#setvisibleiconname) | Set the visible icon name |
+| [getDesktop()](docs/docstrings.md#getdesktop) | Get the desktop index this window is on (0xFFFFFFFF = all desktops) |
+| [setDesktop()](docs/docstrings.md#setdesktop) | Move the window to a specific desktop |
+| [getWmWindowType()](docs/docstrings.md#getwmwindowtype) | Get the functional window type (NORMAL, DIALOG, DOCK, etc.) |
+| [setWmWindowType()](docs/docstrings.md#setwmwindowtype) | Change the window type |
+| [getWmState()](docs/docstrings.md#getwmstate) | Get the list of current window states |
+| [changeWmState()](docs/docstrings.md#changewmstate) | Add, remove or toggle a window state |
+| [setMaximized()](docs/docstrings.md#setmaximized) | Set or unset horizontal/vertical maximized states |
+| [setMinimized()](docs/docstrings.md#setminimized) | Iconify (minimize) the window |
+| [getAllowedActions()](docs/docstrings.md#getallowedactions) | Get the list of user actions currently allowed on this window |
+| [getStrut()](docs/docstrings.md#getstrut) | Get reserved screen-border space (legacy, see getStrutPartial) |
+| [setStrut()](docs/docstrings.md#setstrut) | Set reserved screen-border space |
+| [getStrutPartial()](docs/docstrings.md#getstrutpartial) | Get detailed reserved space at each screen border |
+| [getIconGeometry()](docs/docstrings.md#geticongeometry) | Get the geometry of the window's taskbar icon |
+| [getPid()](docs/docstrings.md#getpid) | Get the process id (PID) of the window's owner |
+| [getHandledIcons()](docs/docstrings.md#gethandledicons) | Check whether the pager is handling icons for this window |
+| [getUserTime()](docs/docstrings.md#getusertime) | Get the timestamp of last user activity in this window |
+| [getFrameExtents()](docs/docstrings.md#getframeextents) | Get the WM frame extents (left, right, top, bottom) |
+| [getOpaqueRegion()](docs/docstrings.md#getopaqueregion) | Get the fully-opaque rectangles within the window |
+| [getBypassCompositor()](docs/docstrings.md#getbypasscompositor) | Check whether the compositor should be bypassed |
+| [setActive()](docs/docstrings.md#setactive) | Activate (focus) this window |
+| [setClosed()](docs/docstrings.md#setclosed-1) | Request the WM to close this window |
+| [changeStacking()](docs/docstrings.md#changestacking) | Change this window's stacking position relative to siblings |
+| [setMoveResize()](docs/docstrings.md#setmoveresize-1) | Move and/or resize this window |
+| [setWmMoveResize()](docs/docstrings.md#setwmmoveresize-1) | Initiate interactive move/resize via the WM |
+| [setWmStacking()](docs/docstrings.md#setwmstacking-1) | Restack this window (pager use) |
+| [requestFrameExtents()](docs/docstrings.md#requestframeextents-1) | Ask WM to estimate frame extents before this window is mapped |
 
 ### EwmhWindow variables
 
@@ -283,22 +283,22 @@ Low-level, non-EWMH window features — hints, protocols, and event monitoring �
 
 | Method | Description |
 |--------|-------------|
-| [getWmHints()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getwmhints) | Get WM_HINTS (input model, icon, urgency, etc.) |
-| [setWmHints()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmhints) | Set or update WM_HINTS |
-| [getWmNormalHints()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getwmnormalhints) | Get WM_NORMAL_HINTS (size constraints, gravity, aspect) |
-| [setWmNormalHints()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#setwmnormalhints) | Set or update WM_NORMAL_HINTS |
-| [getWmProtocols()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getwmprotocols) | Get the WM protocols supported by this window |
-| [addWmProtocols()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#addwmprotocols) | Add supported WM protocols |
-| [delWmProtocols()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#delwmprotocols) | Remove supported WM protocols |
-| [CheckEvents](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#checkevents) | Watch for X events and invoke a callback |
+| [getWmHints()](docs/docstrings.md#getwmhints) | Get WM_HINTS (input model, icon, urgency, etc.) |
+| [setWmHints()](docs/docstrings.md#setwmhints) | Set or update WM_HINTS |
+| [getWmNormalHints()](docs/docstrings.md#getwmnormalhints) | Get WM_NORMAL_HINTS (size constraints, gravity, aspect) |
+| [setWmNormalHints()](docs/docstrings.md#setwmnormalhints) | Set or update WM_NORMAL_HINTS |
+| [getWmProtocols()](docs/docstrings.md#getwmprotocols) | Get the WM protocols supported by this window |
+| [addWmProtocols()](docs/docstrings.md#addwmprotocols) | Add supported WM protocols |
+| [delWmProtocols()](docs/docstrings.md#delwmprotocols) | Remove supported WM protocols |
+| [CheckEvents](docs/docstrings.md#checkevents) | Watch for X events and invoke a callback |
 
 `CheckEvents` runs a background watchdog thread. Control it with:
 
 | Method | Description |
 |--------|-------------|
-| [start()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#start) | Start watching for events (can be called again to update args) |
-| [pause()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#pause) | Pause the watchdog (resume by calling start() again) |
-| [stop()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#stop) | Stop and terminate the watchdog thread |
+| [start()](docs/docstrings.md#start) | Start watching for events (can be called again to update args) |
+| [pause()](docs/docstrings.md#pause) | Pause the watchdog (resume by calling start() again) |
+| [stop()](docs/docstrings.md#stop) | Stop and terminate the watchdog thread |
 
 ---
 
@@ -308,10 +308,10 @@ These module-level functions let you query and control windows or roots directly
 
 | Function | Description |
 |----------|-------------|
-| [getProperty()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getproperty) | Retrieve a property from a window or root |
-| [getPropertyValue()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#getpropertyvalue) | Extract data from a retrieved property struct |
-| [changeProperty()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#changeproperty) | Set or change a property on a window or root |
-| [sendMessage()](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#sendmessage) | Send a ClientMessage event to a window or root |
+| [getProperty()](docs/docstrings.md#getproperty) | Retrieve a property from a window or root |
+| [getPropertyValue()](docs/docstrings.md#getpropertyvalue) | Extract data from a retrieved property struct |
+| [changeProperty()](docs/docstrings.md#changeproperty) | Set or change a property on a window or root |
+| [sendMessage()](docs/docstrings.md#sendmessage) | Send a ClientMessage event to a window or root |
 
 ---
 
@@ -321,17 +321,17 @@ All EWMH-defined properties, atoms and hint values are accessible through the `P
 
 | Subclass | Description |
 |----------|-------------|
-| [Root](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#root) | Root window properties (client list, desktops, active window…) |
-| [DesktopLayout](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#desktoplayout) | Desktop layout orientation and corner constants |
-| [Window](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#window) | Per-window properties (name, desktop, PID, strut…) |
-| [WindowType](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#windowtype) | Window type atoms (NORMAL, DIALOG, DOCK, TOOLBAR…) |
-| [State](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#state) | Window state atoms (maximized, minimized, fullscreen…) |
-| [StateAction](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#stateaction) | State change actions (ADD, REMOVE, TOGGLE) |
-| [MoveResize](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#moveresize) | Move/resize direction and edge constants |
-| [DataFormat](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#dataformat) | Property data format constants (8, 16, 32 bit) |
-| [Mode](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#mode) | Property change mode (REPLACE, APPEND, PREPEND) |
-| [StackMode](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#stackmode) | Window stacking modes (Above, Below, TopIf…) |
-| [HintAction](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#hintaction) | Hint modification actions (KEEP, REMOVE, or new value) |
+| [Root](docs/docstrings.md#root) | Root window properties (client list, desktops, active window…) |
+| [DesktopLayout](docs/docstrings.md#desktoplayout) | Desktop layout orientation and corner constants |
+| [Window](docs/docstrings.md#window) | Per-window properties (name, desktop, PID, strut…) |
+| [WindowType](docs/docstrings.md#windowtype) | Window type atoms (NORMAL, DIALOG, DOCK, TOOLBAR…) |
+| [State](docs/docstrings.md#state) | Window state atoms (maximized, minimized, fullscreen…) |
+| [StateAction](docs/docstrings.md#stateaction) | State change actions (ADD, REMOVE, TOGGLE) |
+| [MoveResize](docs/docstrings.md#moveresize) | Move/resize direction and edge constants |
+| [DataFormat](docs/docstrings.md#dataformat) | Property data format constants (8, 16, 32 bit) |
+| [Mode](docs/docstrings.md#mode) | Property change mode (REPLACE, APPEND, PREPEND) |
+| [StackMode](docs/docstrings.md#stackmode) | Window stacking modes (Above, Below, TopIf…) |
+| [HintAction](docs/docstrings.md#hintaction) | Hint modification actions (KEEP, REMOVE, or new value) |
 
 ---
 
@@ -341,10 +341,10 @@ Named tuples to help interpret the structured data returned by some methods.
 
 | Struct | Description |
 |--------|-------------|
-| [DisplaysInfo](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#displaysinfo) | Display/screen/root info returned by getDisplaysInfo() |
-| [ScreensInfo](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#screensinfo) | Per-screen info |
-| [WmHints](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#wmhints) | WM_HINTS fields returned by getWmHints() |
-| [WmNormalHints](https://github.com/Kalmat/EWMHlib/blob/master/docs/docstrings.md#wmnormalhints) | WM_NORMAL_HINTS fields returned by getWmNormalHints() |
+| [DisplaysInfo](docs/docstrings.md#displaysinfo) | Display/screen/root info returned by getDisplaysInfo() |
+| [ScreensInfo](docs/docstrings.md#screensinfo) | Per-screen info |
+| [WmHints](docs/docstrings.md#wmhints) | WM_HINTS fields returned by getWmHints() |
+| [WmNormalHints](docs/docstrings.md#wmnormalhints) | WM_NORMAL_HINTS fields returned by getWmNormalHints() |
 
 ---
 
