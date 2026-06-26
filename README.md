@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/ewmhlib.svg)](https://badge.fury.io/py/ewmhlib)
 [![Documentation Status](https://readthedocs.org/projects/ewmhlib/badge/?version=latest)](https://ewmhlib.readthedocs.io/en/latest/?badge=latest)
 
-A complete [EWMH](https://specifications.freedesktop.org/wm-spec/latest/) (Extended Window Manager Hints) implementation in Python 3 and python-xlib. Provides full, Pythonic access to the EWMH spec — query and control any compliant Window Manager, manage window hints, and subscribe to X events.
+A complete [EWMH](https://specifications.freedesktop.org/wm-spec/latest/) (Extended Window Manager Hints) implementation in Python 3 and Xlib. Provides full, Pythonic access to the EWMH spec — query and control any compliant Window Manager, manage window hints, and subscribe to X events.
 
 **Tested on:** Ubuntu/GNOME · Mint/Cinnamon · Manjaro/KDE · Raspbian/LXDE
 
