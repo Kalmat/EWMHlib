@@ -1,18 +1,16 @@
-import sys
 import time
 
 import Xlib.protocol
 import Xlib.X
 
-sys.path.insert(0, "../src/")
-from ewmhlib import Props, getDisplaysInfo, EwmhRoot, EwmhWindow
+import ewmhlib
 
 
 def main() -> None:
     print("ALL DISPLAYS")
-    print(getDisplaysInfo())
+    print(ewmhlib.getDisplaysInfo())
 
-    root = EwmhRoot()
+    root = ewmhlib.EwmhRoot()
 
     print("DESKTOP LAYOUT")
     print(root.getDesktopLayout())
@@ -55,7 +53,7 @@ def main() -> None:
     if w:
         print("REQ FRAME EXTENTS")
         print(root.requestFrameExtents(w))
-        win = EwmhWindow(w)
+        win = ewmhlib.EwmhWindow(w)
         name = win.getName()
         print("NAME", name)
         visName = win.getVisibleName()
@@ -94,16 +92,16 @@ def main() -> None:
         print("MOVING/RESIZING")
         root.setMoveResize(w, x=100, y=100, width=800, height=600, userAction=True)  # Equivalent to win.setMoveResize()
         print("BELOW ON")
-        win.changeWmState(Props.StateAction.ADD, Props.State.BELOW)
+        win.changeWmState(ewmhlib.Props.StateAction.ADD, ewmhlib.Props.State.BELOW)
         time.sleep(4)
         print("BELOW OFF")
-        win.changeWmState(Props.StateAction.REMOVE, Props.State.BELOW)
+        win.changeWmState(ewmhlib.Props.StateAction.REMOVE, ewmhlib.Props.State.BELOW)
         time.sleep(4)
         print("DESKTOP")
-        win.setWmWindowType(Props.WindowType.DESKTOP)
+        win.setWmWindowType(ewmhlib.Props.WindowType.DESKTOP)
         time.sleep(4)
         print("NORMAL")
-        win.setWmWindowType(Props.WindowType.NORMAL)
+        win.setWmWindowType(ewmhlib.Props.WindowType.NORMAL)
         print("MAX HORZ ON")
         win.setMaximized(True, False)
         time.sleep(4)

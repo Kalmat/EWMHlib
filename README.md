@@ -1,13 +1,16 @@
 # EWMHlib
-[![CI](https://github.com/Kalmat/EWMHlib/actions/workflows/ci.yml/badge.svg)](https://github.com/Kalmat/EWMHlib/actions/workflows/ci.yml)
-[![PyPI version](https://badge.fury.io/py/ewmhlib.svg)](https://badge.fury.io/py/ewmhlib)
+[![CI](https://github.com/Kalmat/EWMHlib/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/Kalmat/EWMHlib/actions/workflows/ci.yml)
+[![PyPI version](https://badge.fury.io/py/EWMHlib.svg)](https://badge.fury.io/py/EWMHlib)
 [![Documentation Status](https://readthedocs.org/projects/ewmhlib/badge/?version=latest)](https://ewmhlib.readthedocs.io/en/latest/?badge=latest)
+[![Downloads](https://static.pepy.tech/badge/ewmhlib/month)](https://pepy.tech/project/ewmhlib)
+[![Stars](https://img.shields.io/github/stars/Kalmat/EWMHlib?style=flat)](https://github.com/Kalmat/EWMHlib/stargazers)
+[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue)](LICENSE.txt)
 
 A complete [EWMH](https://specifications.freedesktop.org/wm-spec/latest/) (Extended Window Manager Hints) implementation in Python 3 and python-xlib. Provides full, Pythonic access to the EWMH spec — query and control any compliant Window Manager, manage window hints, and subscribe to X events.
 
 **Tested on:** Ubuntu/GNOME · Mint/Cinnamon · Manjaro/KDE · Raspbian/LXDE
 
-> **⚠️ Wayland note:** The new protocol used by GNOME in Ubuntu (Wayland) is not EWMH-compliant. Many features will not work under Wayland.
+> **⚠️ Wayland note:** The new protocol used by GNOME in Ubuntu (Wayland) is not EWMH-compliant. This module is likely not working under Wayland.
 
 ---
 
