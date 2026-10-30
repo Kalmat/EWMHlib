@@ -59,6 +59,6 @@ dev = [
 ]
 
 [tool.uv]
-# This project is Linux-only
-environments = ["sys_platform == 'linux'"]
+required-version = ">=0.13.0" # Defaults to ARM64 Python on ARM64 host
+environments = ["sys_platform == 'linux'"] # This project is Linux-only
 exclude-newer = "1 week"
